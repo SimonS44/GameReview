@@ -28,29 +28,5 @@ def get_db_connection():
 def index():
     return render_template('index.html')
 
-@app.route('/games', methods=['GET'])
-def get_games():
-    conn = get_db_connection()
-    cur = conn.cursor()
-    cur.execute('SELECT * FROM games;')
-    rows = cur.fetchall()
-    cur.close()
-    conn.close()
-    return jsonify(rows)
-
-@app.route('/add_game', methods=['POST'])
-def add_game():
-    new_game = request.json
-    conn = get_db_connection()
-    cur = conn.cursor()
-    cur.execute(
-        'INSERT INTO games (name, genre, rating) VALUES (%s, %s, %s);',
-        (new_game['name'], new_game['genre'], new_game['rating'])
-    )
-    conn.commit()
-    cur.close()
-    conn.close()
-    return jsonify({'status': 'Game added'}), 201
-
 if __name__ == '__main__':
     app.run(debug=True)
