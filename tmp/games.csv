@@ -1,4 +1,4 @@
-id,title,genre,developerid,releaseyear
+id,title,genre,developer,releaseyear
 000,Pokemon Red,Adventure,Nintendo,1996
 001,Pokemon Blue,Adventure,Nintendo,1996
 002,Pokemon Yellow,Adventure,Nintendo,1996
