@@ -14,7 +14,6 @@ DB_HOST = config.DB_HOST    #'your_db_host'
 DB_PORT = config.DB_PORT    #'your_db_port'
 
 # set your own database name, username and password
-db = "dbname='Crypto' user='postgres' host='localhost' password='Krelle2024'" #potentially wrong password
 conn = psycopg2.connect(
         dbname=DB_NAME,
         user=DB_USER,
