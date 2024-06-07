@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, jsonify
 import psycopg2
 import pandas as pd
 import os
-import config
+import config #Used and in .gitignore, so we can work on different databases.
 
 app = Flask(__name__)
 
