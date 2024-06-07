@@ -23,10 +23,11 @@ conn = psycopg2.connect(
     )
 cursor = conn.cursor()
 
-
 @app.route('/')
 def index():
-    return render_template('index.html')
+    cursor.execute('SELECT id, title FROM games LIMIT 10')
+    games = cursor.fetchall()
+    return render_template('index.html', games=games)
 
 if __name__ == '__main__':
     app.run(debug=True)
