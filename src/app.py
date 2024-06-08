@@ -100,6 +100,23 @@ def game_detail(game_id):
     else:
         return "Game not found", 404
 
+#Submit review route. 
+@app.route('/submit_review/<game_id>', methods=['POST'])
+def submit_review(game_id):
+    rating = request.form.get('rating')
+    comment = request.form.get('comment')
+    username = session.get('username')  # Retrieve username from session
+    
+    if rating and comment and username:
+        cur = conn.cursor()
+        cur.execute('INSERT INTO Reviews (gameId, username, review_score, comment) VALUES (%s, %s, %s, %s)', 
+                    (game_id, username, rating, comment))
+        conn.commit()
+        cur.close()
+        
+    return redirect(url_for('game_detail', game_id=game_id))
+
+
 #logout button.
 @app.route('/logout')
 def logout():
