@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ game[0] }}</title>
-    <link rel="stylesheet" href="/static/style.css" type="text/css" />
+    <link rel="stylesheet" href="/static/detailStyle.css" type="text/css" />
+    
     <style>
         .game-detail {
             text-align: center;
@@ -18,12 +19,32 @@
 </head>
 <body>
     <div class="game-detail">
-        <h1>{{ game[0] }}</h1>
-        <img src="{{ url_for('static', filename='images/' + game_id + '.jpg') }}" alt="{{ game[0] }}">
-        <p><strong>Genre:</strong> {{ game[1] }}</p>
-        <p><strong>Developer:</strong> {{ game[2] }}</p>
-        <p><strong>Release Year:</strong> {{ game[3] }}</p>
         <button onclick="window.location.href='/'">Back to Home</button>
+        <div class="container">
+            <div class="column" id="column1">
+                <img src="{{ url_for('static', filename='images/' + game_id + '.jpg') }}" alt="{{ game[0] }}">
+                <h1>{{ game[0] }}</h1>
+                <p><strong>Genre:</strong> {{ game[1] }}</p>
+                <p><strong>Developer:</strong> {{ game[2] }}</p>
+                <p><strong>Release Year:</strong> {{ game[3] }}</p>
+            </div>
+            <div class="column" id="column2">
+                <input
+                    type="text"
+                    class="????"
+                    value=""
+                    placeholder="comment"
+                    name="????"
+                />
+            </div>
+            <div class="column" id="column3">
+                <h2>Column 3</h2>
+                <p>This is the content of the third column.</p>
+            </div>
+        </div>
+    </div>
+    <div class="game-comments">
+
     </div>
 </body>
 </html>
