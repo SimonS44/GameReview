@@ -25,14 +25,14 @@ conn = psycopg2.connect(
 cursor = conn.cursor()
 
 # Hjælpefunktion til platforms
-def get_all_platforms():
-    try:
-        cursor.execute('SELECT platform_id, platform_name FROM Platforms ORDER BY platform_name')
-        platforms = cursor.fetchall()
-        return platforms
-    except Exception as e:
-        print("Error fetching platforms:", e)
-        return []
+#def get_all_platforms():
+#    try:
+#        cursor.execute('SELECT platform_id, platform_name FROM Platforms ORDER BY platform_name')
+#        platforms = cursor.fetchall()
+#        return platforms
+#    except Exception as e:
+#        print("Error fetching platforms:", e)
+#        return []
 
 
 #Frontpage
@@ -48,11 +48,11 @@ def index():
     developers = cursor.fetchall()
     cursor.execute('SELECT DISTINCT releaseyear FROM games ORDER BY releaseyear')
     releaseyears = cursor.fetchall()
-    platforms = get_all_platforms()
+    #platforms = get_all_platforms()
 
     if not session.get('logged_in'):
         return render_template('login.html')
-    return render_template('index.html', games=games, genres=genres, developers=developers, releaseyears=releaseyears, platforms=platforms)
+    return render_template('index.html', games=games, genres=genres, developers=developers, releaseyears=releaseyears)#, platforms=platforms)
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
@@ -75,9 +75,9 @@ def search():
         if releaseyear_filter:
             query += " AND releaseyear = %s"
             params.append(releaseyear_filter)
-        if platform_filter:
-            query += " AND id IN (SELECT game_id FROM GamePlatforms WHERE platform_id = %s)"
-            params.append(platform_filter)
+        #if platform_filter:
+        #    query += " AND id IN (SELECT game_id FROM GamePlatforms WHERE platform_id = %s)"
+        #    params.append(platform_filter)
 
 
         cursor.execute(query, params)
