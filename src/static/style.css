@@ -1,3 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-}
+    background: url('https://static1.thegamerimages.com/wordpress/wp-content/uploads/2022/03/Chainsaw-Compilation.jpg') no-repeat center center/cover;
+    color: rgba(255,255,255,0.8);
+    padding: 50px;
+    }
