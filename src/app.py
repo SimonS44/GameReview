@@ -27,7 +27,7 @@ cursor = conn.cursor()
 #Frontpage
 @app.route('/')
 def index():
-    cursor.execute('SELECT id, title FROM games order by random() LIMIT 12')
+    cursor.execute('SELECT id, title FROM games order by random() LIMIT 100')
     games = cursor.fetchall()
     if not session.get('logged_in'):
         return render_template('login.html')
