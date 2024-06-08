@@ -102,6 +102,9 @@ def game_detail(game_id):
 
 @app.route('/submit_review/<game_id>', methods=['POST'])
 def submit_review(game_id):
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    
     rating = request.form.get('rating')
     comment = request.form.get('comment')
     username = session.get('username')  # Retrieve username from session
@@ -125,6 +128,19 @@ def submit_review(game_id):
         cur.close()
         
     return redirect(url_for('game_detail', game_id=game_id))
+
+@app.route('/profile')
+def profile():
+    username = session.get('username')  # Retrieve username from session
+    if not username:
+        return redirect(url_for('logout'))
+    
+    cur = conn.cursor()
+    cur.execute('SELECT gameId, username, review_score, comment FROM Reviews WHERE username = %s', (username,))
+    reviews = cur.fetchall()
+    cur.close()
+    
+    return render_template('profile.html', username=username, reviews=reviews)
 
 
 #logout button.
