@@ -1,59 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Welcome to GameBase</title>
-    <link rel="stylesheet" href="/static/style.css" type="text/css" />
-    <style>
-        .logout-btn {
-            position: absolute;
-            top: 100px; /* Adjust this value to change the vertical position */
-            right: 120px; /* Adjust this value to change the horizontal position */
-            background-color: #0360bd; /* Match the game background color */
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-        }
-        .logout-btn:hover {
-            background-color: #003d75; /* Slightly darker shade for hover effect */
-        }
-        .games {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px; /* Add some spacing between the items */
-        }
-        .game {
-            border: 2px solid pink;
-            padding: 10px;
-            text-align: center;
-            background-color: #001f3f; /* Dark blue background */
-            color: white; /* White text */
-            width: 256px; /* Fixed width to match the image width */
-        }
-        .game img {
-            width: 256px;
-            height: 330px;
-            object-fit: cover;
-        }
-    </style>
-</head>
-<body>
-    <button class="logout-btn" onclick="window.location.href='/logout'">Logout</button>
-    <h1>Welcome to GameReview</h1>
-    <div class="games">
-        {% for game in games %}
-            <div class="game">
-                <a href="{{ url_for('game_detail', game_id=game[0].strip()) }}" style="color: white; text-decoration: none;">
-                    <h2>{{ game[1] }}</h2>
-                    <img src="{{ url_for('static', filename='images/' + game[0].strip() + '.jpg') }}" alt="{{ game[1] }}">
-                </a>
-            </div>
-        {% endfor %}
-    </div>
-</body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,7 +26,18 @@
             padding: 10px;
             width: 300px;
             border: 2px solid #001f3f;
+            border-radius: 5px;        
+        }
+        .filter-options {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .filter-options select, .filter-options button {
+            padding: 10px;
+            margin: 0 5px;
+            border: 2px solid #001f3f;
             border-radius: 5px;
+            background-color: white;
         }
         .games {
             display: flex;
@@ -107,11 +62,30 @@
 <body>
     <button class="logout-btn" onclick="window.location.href='/logout'">Logout</button>
     <h1>Welcome to GameReview</h1>
-    <!-- Added search form -->
-    <div class="search-form">
+    <!-- Filter options -->
+    <div class="filter-options">
         <form action="/search" method="post">
-            <input type="text" name="search_query" class="search-bar" placeholder="Search for games...">
-            <button type="submit" class="search-btn">Search</button>
+            <select name="genre">
+                <option value="">Select Genre</option>
+                {% for genre in genres %}
+                    <option value="{{ genre[0] }}" {% if genre[0] == genre_filter %}selected{% endif %}>{{ genre[0] }}</option>
+                {% endfor %}
+            </select>
+            <select name="developer">
+                <option value="">Select Developer</option>
+                {% for developer in developers %}
+                    <option value="{{ developer[0] }}" {% if developer[0] == developer_filter %}selected{% endif %}>{{ developer[0] }}</option>
+                {% endfor %}
+            </select>
+            <select name="releaseyear">
+                <option value="">Select Release Year</option>
+                {% for releaseyear in releaseyears %}
+                    <option value="{{ releaseyear[0] }}" {% if releaseyear[0] == releaseyear_filter %}selected{% endif %}>{{ releaseyear[0] }}</option>
+                {% endfor %}
+            </select>
+            <input type="text" name="search_query" class="search-bar" placeholder="Search for games..." value="{{ search_query }}">
+            <button type="submit" class="filter-btn">Search</button>
+            <button type="button" class="reset-btn" onclick="window.location.href='/'">Reset search</button>
         </form>
     </div>
     <div class="games">
