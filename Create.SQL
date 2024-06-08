@@ -1,14 +1,8 @@
---TRUNCATE TABLE Games RESTART IDENTITY CASCADE;
---TRUNCATE TABLE Platforms RESTART IDENTITY CASCADE;
---TRUNCATE TABLE GamePlatforms RESTART IDENTITY CASCADE;
---TRUNCATE TABLE Reviews RESTART IDENTITY CASCADE;
---TRUNCATE TABLE users RESTART IDENTITY CASCADE;
-
-DROP TABLE Games; 	--remove / outcomment if first time running code.
+DROP TABLE Games CASCADE; 	--remove / outcomment if first time running code.
 DROP TABLE users; 	--remove / outcomment if first time running code.
 DROP TABLE reviews;	--remove / outcomment if first time running code.
---DROP TABLE Platforms;     --remove / outcomment if first time running code.;
---DROP TABLE GamePlatforms; --remove / outcomment if first time running code.;
+DROP TABLE Platforms CASCADE;     --remove / outcomment if first time running code.;
+DROP TABLE GamePlatforms; --remove / outcomment if first time running code.;
 
 --Games
 CREATE TABLE IF NOT EXISTS Games(
