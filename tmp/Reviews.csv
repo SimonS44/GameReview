@@ -1,4 +1,46 @@
-gameId, username, review_score, comment
+gameId,username,review_score,comment
 000,testReview1,3,Not very good
 000,testReview2,7,
 000,testReview3,8,Amazing
+000,testReview4,6,Average
+000,testReview5,5,"The game has its moments but overall, it feels lacking in some areas. The graphics are decent but the gameplay could use more depth and variety. However, it has potential for improvement with updates."
+000,testReview6,9,Loved it
+000,testReview7,4,Disappointing
+000,testReview8,7,Good game
+000,testReview9,6,Not bad
+000,testReview10,8,"Great experience. The story was compelling, and the characters were well-developed. I found myself really engaged and looking forward to the next chapter. The sound design was also top-notch. This game kept me on the edge of my seat from start to finish, and I couldn't put it down."
+000,testReview11,7,Enjoyed it
+000,testReview12,9,Fantastic
+000,testReview13,4,Not my type
+000,testReview14,6,It was okay
+000,testReview15,8,"Very enjoyable. The mechanics are innovative, and the level design is intricate and rewarding. This game challenges you in all the right ways, making it a memorable and worthwhile experience."
+001,testReview1,6,It was okay
+001,testReview2,8,Really good
+001,testReview3,9,Loved it
+001,testReview4,7,Pretty good
+001,testReview5,5,"While the concept is intriguing, the execution falls flat. The game suffers from numerous bugs and glitches that hinder the overall experience. Hopefully, future patches will address these issues."
+001,testReview6,4,Not my type
+001,testReview7,3,Disappointing
+001,testReview8,6,Average
+001,testReview9,7,Enjoyed it
+001,testReview10,8,"Great experience. The multiplayer mode is particularly well-done, providing endless hours of fun and competition. The game’s balance and pacing are on point, making it hard to put down."
+001,testReview11,9,Fantastic
+001,testReview12,4,Not bad
+001,testReview13,7,Good game
+001,testReview14,6,Could use improvement
+001,testReview15,8,"Very enjoyable. The open-world environment is vast and full of secrets to discover. The attention to detail in the world-building is impressive, making exploration a truly immersive experience."
+002,testReview1,5,Could be better
+002,testReview2,6,Average
+002,testReview3,7,Enjoyed it
+002,testReview4,8,Great experience
+002,testReview5,9,"Fantastic. The character development is exceptional, and the narrative is gripping from start to finish. The gameplay mechanics are smooth and intuitive, making it a joy to play."
+002,testReview6,4,Not my type
+002,testReview7,6,It was okay
+002,testReview8,8,Really good
+002,testReview9,7,Good game
+002,testReview10,5,"Could use improvement. The game offers a lot of potential but is currently marred by performance issues. With some optimization and tweaks, it could become a standout title in its genre."
+002,testReview11,6,Not bad
+002,testReview12,7,Pretty good
+002,testReview13,9,Loved it
+002,testReview14,4,Disappointing
+002,testReview15,8,"Very enjoyable. This game sets a new standard for storytelling in the genre. The plot twists kept me on the edge of my seat, and the emotional depth of the characters was profoundly moving."

@@ -81,10 +81,22 @@ def search():
 #When clicking on a game, presumably from the frontpage but can be used elsewhere if needed.
 @app.route('/game/<game_id>')
 def game_detail(game_id):
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    
     cursor.execute('SELECT title, genre, developer, releaseyear FROM games WHERE id = %s', (game_id,))
     game = cursor.fetchone()
+    cursor.execute(f'''SELECT * FROM reviews where gameid = '{game_id}' ORDER BY random()''')   #review test
+    allreviews = cursor.fetchall()                                                              #review test
+    average = 0
+    if len(allreviews)>0:
+        sum = 0
+        for i in range(0,len(allreviews)):
+            sum = sum + allreviews[i][2]
+        average = round(sum/len(allreviews),1)
+    reviews = allreviews[:5]
     if game:
-        return render_template('game_detail.html', game=game, game_id=game_id)
+        return render_template('game_detail.html', game=game, game_id=game_id, reviews=reviews, average=average)
     else:
         return "Game not found", 404
 
@@ -103,7 +115,6 @@ def createaccount():
         new_password = request.form['password']
         cursor.execute(f'''SELECT * FROM users where username = '{new_username}' ''')
         unique_username = cursor.fetchall()
-        
         cursor.execute(f'''SELECT * from users where mail = '{new_mail}' ''')
         unique_mail = cursor.fetchall()
         flash('Account created!')
