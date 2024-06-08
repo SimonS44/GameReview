@@ -33,6 +33,17 @@ def index():
         return render_template('login.html')
     return render_template('index.html', games=games)
 
+#Search bar / search route.
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    if request.method == 'POST':
+        search_query = request.form['search_query']
+        cursor.execute("SELECT id, title FROM games WHERE title ILIKE %s", ('%' + search_query + '%',))
+        games = cursor.fetchall()
+        return render_template('index.html', games=games)
+    return redirect(url_for('index'))
+
+
 #When clicking on a game, presumably from the frontpage but can be used elsewhere if needed.
 @app.route('/game/<game_id>')
 def game_detail(game_id):
