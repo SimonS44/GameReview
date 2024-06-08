@@ -24,6 +24,17 @@ conn = psycopg2.connect(
     )
 cursor = conn.cursor()
 
+# Hjælpefunktion til platforms
+def get_all_platforms():
+    try:
+        cursor.execute('SELECT platform_id, platform_name FROM Platforms ORDER BY platform_name')
+        platforms = cursor.fetchall()
+        return platforms
+    except Exception as e:
+        print("Error fetching platforms:", e)
+        return []
+
+
 #Frontpage
 @app.route('/')
 def index():
@@ -37,10 +48,11 @@ def index():
     developers = cursor.fetchall()
     cursor.execute('SELECT DISTINCT releaseyear FROM games ORDER BY releaseyear')
     releaseyears = cursor.fetchall()
+    platforms = get_all_platforms()
 
     if not session.get('logged_in'):
         return render_template('login.html')
-    return render_template('index.html', games=games, genres=genres, developers=developers, releaseyears=releaseyears)
+    return render_template('index.html', games=games, genres=genres, developers=developers, releaseyears=releaseyears, platforms=platforms)
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
@@ -49,6 +61,7 @@ def search():
         genre_filter = request.form.get('genre', '')
         developer_filter = request.form.get('developer', '')
         releaseyear_filter = request.form.get('releaseyear', '')
+        platform_filter = request.form.get('platform', '')
 
         query = "SELECT gameId, title FROM games WHERE title ILIKE %s"
         params = ['%' + search_query + '%']
@@ -62,6 +75,10 @@ def search():
         if releaseyear_filter:
             query += " AND releaseyear = %s"
             params.append(releaseyear_filter)
+        if platform_filter:
+            query += " AND id IN (SELECT game_id FROM GamePlatforms WHERE platform_id = %s)"
+            params.append(platform_filter)
+
 
         cursor.execute(query, params)
         games = cursor.fetchall()
@@ -74,7 +91,7 @@ def search():
         cursor.execute('SELECT DISTINCT releaseyear FROM games ORDER BY releaseyear')
         releaseyears = cursor.fetchall()
 
-        return render_template('index.html', games=games, genres=genres, developers=developers, releaseyears=releaseyears, search_query=search_query, genre_filter=genre_filter, developer_filter=developer_filter, releaseyear_filter=releaseyear_filter)
+        return render_template('index.html', games=games, genres=genres, developers=developers, releaseyears=releaseyears, search_query=search_query, genre_filter=genre_filter, developer_filter=developer_filter, releaseyear_filter=releaseyear_filter, platforms=get_all_platforms())
     return redirect(url_for('index'))
 
 
@@ -102,6 +119,8 @@ def game_detail(gameId):
 
 @app.route('/submit_review/<gameId>', methods=['POST'])
 def submit_review(gameId):
+    if not session.get('logged_in'):
+        return render_template('login.html')
     rating = request.form.get('rating')
     comment = request.form.get('comment')
     username = session.get('username')  # Retrieve username from session
@@ -125,6 +144,19 @@ def submit_review(gameId):
         cur.close()
         
     return redirect(url_for('game_detail', gameId=gameId))
+
+@app.route('/profile')
+def profile():
+    username = session.get('username')  # Retrieve username from session
+    if not username:
+        return redirect(url_for('logout'))
+    
+    cur = conn.cursor()
+    cur.execute('SELECT gameId, username, review_score, comment FROM Reviews WHERE username = %s', (username,))
+    reviews = cur.fetchall()
+    cur.close()
+    
+    return render_template('profile.html', username=username, reviews=reviews)
 
 
 #logout button.
@@ -179,3 +211,5 @@ def do_admin_login():
 if __name__ == '__main__':
     app.secret_key = os.urandom(12)
     app.run(debug=True)
+
+

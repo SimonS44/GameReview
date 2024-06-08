@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="/static/style.css" type="text/css" />
+    <style>
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #0360bd;
+            padding: 10px 20px;
+            color: white;
+        }
+        .nav-links {
+            display: flex;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        .logout-btn {
+            background-color: #0360bd;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        .logout-btn:hover {
+            background-color: #003d75;
+        }
+        .profile {
+            text-align: center;
+            color: white;
+        }
+        .reviews {
+            margin-top: 20px;
+        }
+        .review {
+            border: 1px solid white;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/profile">Profile</a>
+        </div>
+        <button class="logout-btn" onclick="window.location.href='/logout'">Logout</button>
+    </div>
+    <div class="profile">
+        <h1>{{ username }}'s Profile</h1>
+        <h2>My Reviews</h2>
+        <div class="reviews">
+            {% for review in reviews %}
+                <div class="review">
+                    <p><strong>Game ID:</strong> {{ review[0] }}</p>
+                    <p><strong>Rating:</strong> {{ review[2] }}/10</p>
+                    <p><strong>Comment:</strong> {{ review[3] }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

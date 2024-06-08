@@ -5,18 +5,34 @@
     <title>Welcome to GameBase</title>
     <link rel="stylesheet" href="/static/style.css" type="text/css" />
     <style>
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #014d99;
+            padding: 10px 20px;
+            color: white;
+        }
+        .nav-links {
+            display: flex;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
         .logout-btn {
-            position: absolute;
-            top: 100px; /* Adjust this value to change the vertical position */
-            right: 120px; /* Adjust this value to change the horizontal position */
-            background-color: #0360bd; /* Match the game background color */
+            background-color: #014d99;
             color: white;
             border: none;
             padding: 10px 20px;
             cursor: pointer;
         }
         .logout-btn:hover {
-            background-color: #003d75; /* Slightly darker shade for hover effect */
+            background-color: #003d75;
         }
         .search-form {
             text-align: center;
@@ -42,15 +58,15 @@
         .games {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px; /* Add some spacing between the items */
+            gap: 10px;
         }
         .game {
             border: 2px solid pink;
             padding: 10px;
             text-align: center;
-            background-color: #001f3f; /* Dark blue background */
-            color: white; /* White text */
-            width: 256px; /* Fixed width to match the image width */
+            background-color: #001f3f;
+            color: white;
+            width: 256px;
         }
         .game img {
             width: 256px;
@@ -60,15 +76,26 @@
     </style>
 </head>
 <body>
-    <button class="logout-btn" onclick="window.location.href='/logout'">Logout</button>
+    <div class="navbar">
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/profile">Profile</a>
+        </div>
+        <button class="logout-btn" onclick="window.location.href='/logout'">Logout</button>
+    </div>
     <h1>Welcome to GameBase</h1>
-    <!-- Filter options -->
     <div class="filter-options">
         <form action="/search" method="post">
             <select name="genre">
                 <option value="">Select Genre</option>
                 {% for genre in genres %}
                     <option value="{{ genre[0] }}" {% if genre[0] == genre_filter %}selected{% endif %}>{{ genre[0] }}</option>
+                {% endfor %}
+            </select>
+            <select name="platform">
+                <option value="">Select Platform</option>
+                {% for platform in platforms %}
+                    <option value="{{ platform[0] }}">{{ platform[1] }}</option>
                 {% endfor %}
             </select>
             <select name="developer">
