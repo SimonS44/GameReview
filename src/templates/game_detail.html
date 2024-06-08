@@ -58,7 +58,7 @@
         <button onclick="window.location.href='/'">Back to Home</button>
         <div class="container">
             <div class="column" id="column1">
-                <img src="{{ url_for('static', filename='images/' + game_id + '.jpg') }}" alt="{{ game[0] }}">
+                <img src="{{ url_for('static', filename='images/' + gameId + '.jpg') }}" alt="{{ game[0] }}">
                 <h1>{{ game[0] }}</h1>
                 <p><strong>Genre:</strong> {{ game[1] }}</p>
                 <p><strong>Developer:</strong> {{ game[2] }}</p>
@@ -69,7 +69,7 @@
                     <p><strong>Average rating:</strong> {{ average }}</p>
                 </div>
                 <div><!-- Stars -->
-                    <form method="POST" action="{{ url_for('submit_review', game_id=game_id) }}">
+                    <form method="POST" action="{{ url_for('submit_review', gameId=gameId) }}">
                         <div class="star-rating" oninput="updateCharacterCount()">
                             <input type="radio" id="star10" name="rating" value="10"><label for="star10">&#9733;</label>
                             <input type="radio" id="star9" name="rating" value="9"><label for="star9">&#9733;</label>

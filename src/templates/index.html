@@ -91,7 +91,7 @@
     <div class="games">
         {% for game in games %}
             <div class="game">
-                <a href="{{ url_for('game_detail', game_id=game[0].strip()) }}" style="color: white; text-decoration: none;">
+                <a href="{{ url_for('game_detail', gameId=game[0].strip()) }}" style="color: white; text-decoration: none;">
                     <h2>{{ game[1] }}</h2>
                     <img src="{{ url_for('static', filename='images/' + game[0].strip() + '.jpg') }}" alt="{{ game[1] }}">
                 </a>

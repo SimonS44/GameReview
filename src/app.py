@@ -27,7 +27,7 @@ cursor = conn.cursor()
 #Frontpage
 @app.route('/')
 def index():
-    cursor.execute('SELECT id, title FROM games ORDER BY random() LIMIT 100')
+    cursor.execute('SELECT gameId, title FROM games ORDER BY random() LIMIT 100')
     games = cursor.fetchall()
     
     # Fetch distinct values for dropdowns
@@ -50,7 +50,7 @@ def search():
         developer_filter = request.form.get('developer', '')
         releaseyear_filter = request.form.get('releaseyear', '')
 
-        query = "SELECT id, title FROM games WHERE title ILIKE %s"
+        query = "SELECT gameId, title FROM games WHERE title ILIKE %s"
         params = ['%' + search_query + '%']
 
         if genre_filter:
@@ -79,14 +79,14 @@ def search():
 
 
 #When clicking on a game, presumably from the frontpage but can be used elsewhere if needed.
-@app.route('/game/<game_id>')
-def game_detail(game_id):
+@app.route('/game/<gameId>')
+def game_detail(gameId):
     if not session.get('logged_in'):
         return render_template('login.html')
     
-    cursor.execute('SELECT title, genre, developer, releaseyear FROM games WHERE id = %s', (game_id,))
+    cursor.execute('SELECT title, genre, developer, releaseyear FROM games WHERE id = %s', (gameId,))
     game = cursor.fetchone()
-    cursor.execute(f'''SELECT * FROM reviews where gameid = '{game_id}' ORDER BY random()''')   #review test
+    cursor.execute(f'''SELECT * FROM reviews where gameid = '{gameId}' ORDER BY random()''')   #review test
     allreviews = cursor.fetchall()                                                              #review test
     average = 0
     if len(allreviews)>0:
@@ -96,12 +96,12 @@ def game_detail(game_id):
         average = round(sum/len(allreviews),1)
     reviews = allreviews[:5]
     if game:
-        return render_template('game_detail.html', game=game, game_id=game_id, reviews=reviews, average=average)
+        return render_template('game_detail.html', game=game, gameId=gameId, reviews=reviews, average=average)
     else:
         return "Game not found", 404
 
-@app.route('/submit_review/<game_id>', methods=['POST'])
-def submit_review(game_id):
+@app.route('/submit_review/<gameId>', methods=['POST'])
+def submit_review(gameId):
     rating = request.form.get('rating')
     comment = request.form.get('comment')
     username = session.get('username')  # Retrieve username from session
@@ -109,22 +109,22 @@ def submit_review(game_id):
     if rating and comment and username:
         cur = conn.cursor()
         # Check if a review by this user for this game already exists
-        cur.execute('SELECT * FROM Reviews WHERE gameId = %s AND username = %s', (game_id, username))
+        cur.execute('SELECT * FROM Reviews WHERE gameId = %s AND username = %s', (gameId, username))
         existing_review = cur.fetchone()
         
         if existing_review:
             # Update the existing review
             cur.execute('UPDATE Reviews SET review_score = %s, comment = %s WHERE gameId = %s AND username = %s', 
-                        (rating, comment, game_id, username))
+                        (rating, comment, gameId, username))
         else:
             # Insert a new review
             cur.execute('INSERT INTO Reviews (gameId, username, review_score, comment) VALUES (%s, %s, %s, %s)', 
-                        (game_id, username, rating, comment))
+                        (gameId, username, rating, comment))
         
         conn.commit()
         cur.close()
         
-    return redirect(url_for('game_detail', game_id=game_id))
+    return redirect(url_for('game_detail', gameId=gameId))
 
 
 #logout button.
