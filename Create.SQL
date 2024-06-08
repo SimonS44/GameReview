@@ -3,7 +3,7 @@ DROP TABLE users; 	--remove / outcomment if first time running code.
 DROP TABLE reviews;	--remove / outcomment if first time running code.
 --Games
 CREATE TABLE IF NOT EXISTS Games(
-    id char(3),
+    gameId char(3),
     title char(50),
     genre char(50),
     developer char(50),
@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS Games(
     CONSTRAINT games_pk PRIMARY KEY (id)
 );
 --Import games
-COPY Games(id, title, genre, developer, releaseyear)
+COPY Games(gameId, title, genre, developer, releaseyear)
 FROM 'C:\Users\simon\Desktop\DIS\GameReview\GameReview\tmp\games.csv'
 DELIMITER ','
 CSV HEADER;
