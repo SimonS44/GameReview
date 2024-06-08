@@ -83,7 +83,7 @@ def search():
 def game_detail(game_id):
     cursor.execute('SELECT title, genre, developer, releaseyear FROM games WHERE id = %s', (game_id,))
     game = cursor.fetchone()
-    cursor.execute(f'''SELECT * FROM reviews where gameid = '{game_id}' ''')    #review test
+    cursor.execute(f'''SELECT * FROM reviews where gameid = '{game_id}' ORDER BY random() LIMIT 3 ''')    #review test
     reviews = cursor.fetchall()                                                 #review test
     if game:
         return render_template('game_detail.html', game=game, game_id=game_id, reviews=reviews)
