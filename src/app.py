@@ -146,7 +146,13 @@ def profile():
         return redirect(url_for('logout'))
     
     cur = conn.cursor()
-    cur.execute('SELECT gameId, username, review_score, comment FROM Reviews WHERE username = %s', (username,))
+    cur.execute('''
+        SELECT Reviews.gameId, Games.title, Reviews.review_score, Reviews.comment
+        FROM Reviews
+        JOIN Games ON Reviews.gameId = Games.gameId
+        WHERE Reviews.username = %s
+        ORDER BY Reviews.review_score DESC
+    ''', (username,))
     reviews = cur.fetchall()
     cur.close()
     
