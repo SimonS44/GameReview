@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ game[0] }}</title>
+    <link rel="stylesheet" href="/static/style.css" type="text/css" />
+    <style>
+        .game-detail {
+            text-align: center;
+            color: white;
+        }
+        .game-detail img {
+            width: 256px;
+            height: 330px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-detail">
+        <h1>{{ game[0] }}</h1>
+        <img src="{{ url_for('static', filename='images/' + game_id + '.jpg') }}" alt="{{ game[0] }}">
+        <p><strong>Genre:</strong> {{ game[1] }}</p>
+        <p><strong>Developer:</strong> {{ game[2] }}</p>
+        <p><strong>Release Year:</strong> {{ game[3] }}</p>
+        <button onclick="window.location.href='/'">Back to Home</button>
+    </div>
+</body>
+</html>

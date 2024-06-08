@@ -7,7 +7,7 @@ import re           #regex
 
 app = Flask(__name__)
 
-# Database configuration
+# Database configuration (from config.py)
 DB_NAME = config.DB_NAME    #'your_db_name'
 DB_USER = config.DB_USER    #'your_db_user'
 DB_PASS = config.DB_PASS    #'your_db_password'
