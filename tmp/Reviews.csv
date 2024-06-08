@@ -1,1 +1,4 @@
-gameId, username, title, review_score, comment
+gameId, username, review_score, comment
+000,testReview1,3,Not very good
+000,testReview2,7,
+000,testReview3,8,Amazing
