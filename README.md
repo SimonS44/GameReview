@@ -10,3 +10,11 @@ RUNNING THE CODE:
 Osv.
 
 Using the application:
+
+
+
+
+
+
+
+Test-reviews have been created for the 3 pokemon games to show a proof of concept.
