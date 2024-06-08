@@ -5,11 +5,17 @@
     <title>User Profile</title>
     <link rel="stylesheet" href="/static/style.css" type="text/css" />
     <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            background: url('https://static.vecteezy.com/system/resources/previews/034/324/787/non_2x/dark-cave-game-background-tillable-horizontally-dark-terrible-empty-place-with-rock-lighting-walls-in-side-view-for-2d-games-location-illustration-vector.jpg') no-repeat center center/cover;
+            background-size: cover;
+        }
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #0360bd;
+            background-color: rgba(3, 96, 189, 0.33); /* Semi-transparent background */
             padding: 10px 20px;
             color: white;
         }
@@ -25,28 +31,43 @@
             text-decoration: underline;
         }
         .logout-btn {
-            background-color: #0360bd;
+            background-color: rgba(3, 96, 189, 0); /* Semi-transparent background */
             color: white;
             border: none;
             padding: 10px 20px;
             cursor: pointer;
         }
         .logout-btn:hover {
-            background-color: #003d75;
+            background-color: rgb(0, 25, 49); /* Slightly darker shade for hover effect */
         }
         .profile {
             text-align: center;
             color: white;
+            padding: 20px;
         }
         .reviews {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
             margin-top: 20px;
         }
         .review {
+            display: flex;
+            align-items: center;
             border: 1px solid white;
-            padding: 10px;
-            margin: 10px 0;
+            padding: 10px 10px 10px 20px; /* Adjust padding here for the review box */
             border-radius: 5px;
             background-color: rgba(255, 255, 255, 0.1);
+        }
+        .review img {
+            width: 100px; /* Adjust the width as needed */
+            height: 130px; /* Adjust the height as needed */
+            object-fit: cover;
+        }
+        .review-content {
+            text-align: left;
+            padding-left: 20px; /* Adjust padding-left here for spacing between image and review content */
+            /* You can manually adjust this value to change the distance */
         }
     </style>
 </head>
@@ -64,9 +85,13 @@
         <div class="reviews">
             {% for review in reviews %}
                 <div class="review">
-                    <p><strong>Game ID:</strong> {{ review[0] }}</p>
-                    <p><strong>Rating:</strong> {{ review[2] }}/10</p>
-                    <p><strong>Comment:</strong> {{ review[3] }}</p>
+                    <img src="{{ url_for('static', filename='images/' + review[0].strip() + '.jpg') }}" alt="{{ review[1] }}">
+                    <div class="review-content">
+                        <p><strong>Game Title:</strong> {{ review[1] }}</p>
+                        <p><strong>Rating:</strong> {{ review[2] }}/10</p>
+                        <p><strong>Comment:</strong> {{ review[3] }}</p>
+                        <p><a href="{{ url_for('game_detail', gameId=review[0].strip()) }}" style="color: white;">Edit your review for {{ review[1] }}</a></p>
+                    </div>
                 </div>
             {% endfor %}
         </div>
