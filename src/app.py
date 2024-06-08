@@ -86,10 +86,17 @@ def game_detail(game_id):
     
     cursor.execute('SELECT title, genre, developer, releaseyear FROM games WHERE id = %s', (game_id,))
     game = cursor.fetchone()
-    cursor.execute(f'''SELECT * FROM reviews where gameid = '{game_id}' ORDER BY random() LIMIT 5 ''')     #review test
-    reviews = cursor.fetchall()                                                                             #review test
+    cursor.execute(f'''SELECT * FROM reviews where gameid = '{game_id}' ORDER BY random()''')   #review test
+    allreviews = cursor.fetchall()                                                              #review test
+    average = 0
+    if len(allreviews)>0:
+        sum = 0
+        for i in range(0,len(allreviews)):
+            sum = sum + allreviews[i][2]
+        average = round(sum/len(allreviews),1)
+    reviews = allreviews[:5]
     if game:
-        return render_template('game_detail.html', game=game, game_id=game_id, reviews=reviews)
+        return render_template('game_detail.html', game=game, game_id=game_id, reviews=reviews, average=average)
     else:
         return "Game not found", 404
 
