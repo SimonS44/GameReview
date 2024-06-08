@@ -33,12 +33,38 @@ def index():
         return render_template('login.html')
     return render_template('index.html', games=games)
 
-#Search bar / search route.
+# #Search bar / search route.
+# @app.route('/search', methods=['GET', 'POST'])
+# def search():
+#     if request.method == 'POST':
+#         search_query = request.form['search_query']
+#         cursor.execute("SELECT id, title FROM games WHERE title ILIKE %s", ('%' + search_query + '%',))
+#         games = cursor.fetchall()
+#         return render_template('index.html', games=games)
+#     return redirect(url_for('index'))
+
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     if request.method == 'POST':
-        search_query = request.form['search_query']
-        cursor.execute("SELECT id, title FROM games WHERE title ILIKE %s", ('%' + search_query + '%',))
+        search_query = request.form.get('search_query', '')
+        genre_filter = request.form.get('genre', '')
+        developer_filter = request.form.get('developer', '')
+        releaseyear_filter = request.form.get('releaseyear', '')
+
+        query = "SELECT id, title FROM games WHERE title ILIKE %s"
+        params = ['%' + search_query + '%']
+
+        if genre_filter:
+            query += " AND genre = %s"
+            params.append(genre_filter)
+        if developer_filter:
+            query += " AND developer = %s"
+            params.append(developer_filter)
+        if releaseyear_filter:
+            query += " AND releaseyear = %s"
+            params.append(releaseyear_filter)
+
+        cursor.execute(query, params)
         games = cursor.fetchall()
         return render_template('index.html', games=games)
     return redirect(url_for('index'))

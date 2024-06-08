@@ -82,7 +82,18 @@
             padding: 10px;
             width: 300px;
             border: 2px solid #001f3f;
+            border-radius: 5px;        
+        }
+        .filter-options {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .filter-options select, .filter-options button {
+            padding: 10px;
+            margin: 0 5px;
+            border: 2px solid #001f3f;
             border-radius: 5px;
+            background-color: white;
         }
         .games {
             display: flex;
@@ -107,11 +118,38 @@
 <body>
     <button class="logout-btn" onclick="window.location.href='/logout'">Logout</button>
     <h1>Welcome to GameReview</h1>
-    <!-- Added search form -->
+    <!-- Search form -->
     <div class="search-form">
         <form action="/search" method="post">
             <input type="text" name="search_query" class="search-bar" placeholder="Search for games...">
             <button type="submit" class="search-btn">Search</button>
+        </form>
+    </div>
+    <!-- Filter options -->
+    <div class="filter-options">
+        <form action="/search" method="post">
+            <select name="genre">
+                <option value="">Select Genre</option>
+                <!-- Add available genres here -->
+                <option value="Action">Action</option>
+                <option value="Adventure">Adventure</option>
+                <!-- Add more genres as needed -->
+            </select>
+            <select name="developer">
+                <option value="">Select Developer</option>
+                <!-- Add available developers here -->
+                <option value="Nintendo">Nintendo</option>
+                <option value="Ubisoft">Ubisoft</option>
+                <!-- Add more developers as needed -->
+            </select>
+            <select name="releaseyear">
+                <option value="">Select Release Year</option>
+                <!-- Add available release years here -->
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+                <!-- Add more years as needed -->
+            </select>
+            <button type="submit" class="filter-btn">Filter</button>
         </form>
     </div>
     <div class="games">
