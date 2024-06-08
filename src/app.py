@@ -27,7 +27,7 @@ cursor = conn.cursor()
 #Frontpage
 @app.route('/')
 def index():
-    cursor.execute('SELECT id, title FROM games ORDER BY random() LIMIT 12')
+    cursor.execute('SELECT id, title FROM games ORDER BY random() LIMIT 100')
     games = cursor.fetchall()
     
     # Fetch distinct values for dropdowns
