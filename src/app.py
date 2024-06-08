@@ -24,14 +24,14 @@ conn = psycopg2.connect(
     )
 cursor = conn.cursor()
 
-# #Frontpage
-# @app.route('/')
-# def index():
-#     cursor.execute('SELECT id, title FROM games order by random() LIMIT 12')
-#     games = cursor.fetchall()
-#     if not session.get('logged_in'):
-#         return render_template('login.html')
-#     return render_template('index.html', games=games)
+#Frontpage
+@app.route('/')
+def index():
+    cursor.execute('SELECT id, title FROM games order by random() LIMIT 100')
+    games = cursor.fetchall()
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    return render_template('index.html', games=games)
 
 # @app.route('/search', methods=['GET', 'POST'])
 # def search():
