@@ -60,14 +60,14 @@ DELIMITER ','
 CSV HEADER;
 
 CREATE TABLE IF NOT EXISTS GamePlatforms(
-    game_id CHAR(3) NOT NULL,
+    gameId CHAR(3) NOT NULL,
     platform_id INT NOT NULL,
-    CONSTRAINT fk_game FOREIGN KEY (game_id) REFERENCES Games(id) ON DELETE CASCADE,
+    CONSTRAINT fk_game FOREIGN KEY (gameId) REFERENCES Games(gameId) ON DELETE CASCADE,
     CONSTRAINT fk_platform FOREIGN KEY (platform_id) REFERENCES Platforms(platform_id) ON DELETE CASCADE,
-    CONSTRAINT pk_game_platform PRIMARY KEY (game_id, platform_id)
+    CONSTRAINT pk_game_platform PRIMARY KEY (gameId, platform_id)
 );
 
-COPY GamePlatforms(game_id, platform_id)
+COPY GamePlatforms(gameId, platform_id)
 FROM '\GameReview\tmp\GamePlatforms.csv'
 DELIMITER ','
 CSV HEADER;
