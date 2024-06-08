@@ -45,8 +45,6 @@ def createaccount():
         
         cursor.execute(f'''SELECT * from users where mail = '{new_mail}' ''')
         unique_mail = cursor.fetchall()
-        print(unique_username)
-        print(unique_mail)
         flash('Account created!')
         if len(unique_username) == 0:
             if  len(unique_mail) == 0:
@@ -57,15 +55,31 @@ def createaccount():
                     conn.commit()
                     return redirect(url_for("index")) #replace later
                 else:
-                    flash('Invalid mail')
+                    flash('Invalid mail!')
             else: 
                 flash('Mail already exists!')
         else: 
             flash('Username already exists!')
-
-
     return render_template("createaccount.html")
 
+@app.route('/login', methods=['POST'])
+def do_admin_login():
+    cur = conn.cursor()
+    username = request.form['username']
+    password = request.form['password'] 
+
+    insys = f''' SELECT * from users where username = '{username}' and password = '{password}' '''
+
+    cur.execute(insys)
+
+    ifcool = len(cur.fetchall()) != 0
+
+    if ifcool:
+        session['logged_in'] = True
+        session['username'] = username
+    else:
+        flash('Wrong password!')
+    return redirect(url_for("index"))
 
 if __name__ == '__main__':
     app.secret_key = os.urandom(12)
