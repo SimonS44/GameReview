@@ -74,7 +74,7 @@ def search():
         cursor.execute('SELECT DISTINCT releaseyear FROM games ORDER BY releaseyear')
         releaseyears = cursor.fetchall()
 
-        return render_template('index.html', games=games, genres=genres, developers=developers, releaseyears=releaseyears)
+        return render_template('index.html', games=games, genres=genres, developers=developers, releaseyears=releaseyears, search_query=search_query, genre_filter=genre_filter, developer_filter=developer_filter, releaseyear_filter=releaseyear_filter)
     return redirect(url_for('index'))
 
 

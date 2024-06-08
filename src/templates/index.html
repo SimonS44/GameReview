@@ -68,23 +68,24 @@
             <select name="genre">
                 <option value="">Select Genre</option>
                 {% for genre in genres %}
-                    <option value="{{ genre[0] }}">{{ genre[0] }}</option>
+                    <option value="{{ genre[0] }}" {% if genre[0] == genre_filter %}selected{% endif %}>{{ genre[0] }}</option>
                 {% endfor %}
             </select>
             <select name="developer">
                 <option value="">Select Developer</option>
                 {% for developer in developers %}
-                    <option value="{{ developer[0] }}">{{ developer[0] }}</option>
+                    <option value="{{ developer[0] }}" {% if developer[0] == developer_filter %}selected{% endif %}>{{ developer[0] }}</option>
                 {% endfor %}
             </select>
             <select name="releaseyear">
                 <option value="">Select Release Year</option>
                 {% for releaseyear in releaseyears %}
-                    <option value="{{ releaseyear[0] }}">{{ releaseyear[0] }}</option>
+                    <option value="{{ releaseyear[0] }}" {% if releaseyear[0] == releaseyear_filter %}selected{% endif %}>{{ releaseyear[0] }}</option>
                 {% endfor %}
             </select>
-            <input type="text" name="search_query" class="search-bar" placeholder="Search for games...">
-            <button type="submit" class="filter-btn">Filter</button>
+            <input type="text" name="search_query" class="search-bar" placeholder="Search for games..." value="{{ search_query }}">
+            <button type="submit" class="filter-btn">Search</button>
+            <button type="button" class="reset-btn" onclick="window.location.href='/'">Reset search</button>
         </form>
     </div>
     <div class="games">
