@@ -51,18 +51,6 @@
             border-radius: 5px;
             background-color: rgba(255, 255, 255, 0.1);
         }
-        .stars {
-            display: inline-block;
-            font-size: 0;
-        }
-        .stars::before {
-            content: "★★★★★★★★★★";
-            font-size: 2em;
-            letter-spacing: 3px;
-            background: linear-gradient(90deg, yellow calc(var(--rating) * 10%), black calc(var(--rating) * 10%));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
     </style>
 </head>
 <body>
@@ -79,7 +67,6 @@
             <div class="column" id="column2">
                 <div><!-- Average Rating -->
                     <p><strong>Average rating:</strong> {{ average }}</p>
-                    <div class="stars" style="--rating: 0.33;"></div>
                 </div>
                 <div><!-- Stars -->
                     <form>
@@ -124,8 +111,7 @@
     </div>
     <script>
         //average----------------------------------------------------------------------------------------------------------------
-        let rating = 3.3; // Example variable for the rating
-        document.querySelector('.stars').style.setProperty('--rating', rating / 10);
+
         //average----------------------------------------------------------------------------------------------------------------
         //Personal---------------------------------------------------------------------------------------------------------------
         const ratingInputs = document.querySelectorAll('.star-rating input');
