@@ -53,7 +53,7 @@ def createaccount():
                     cursor.execute(f'''INSERT INTO users(username, password, mail) VALUES ('{new_username}', '{new_password}', '{new_mail}')''')
                     flash('Account created!')
                     conn.commit()
-                    return redirect(url_for("index")) #replace later
+                    return redirect(url_for("index"))
                 else:
                     flash('Invalid mail!')
             else: 
@@ -68,13 +68,9 @@ def do_admin_login():
     username = request.form['username']
     password = request.form['password'] 
 
-    insys = f''' SELECT * from users where username = '{username}' and password = '{password}' '''
+    cur.execute(f''' SELECT * from users where username = '{username}' and password = '{password}' ''')
 
-    cur.execute(insys)
-
-    ifcool = len(cur.fetchall()) != 0
-
-    if ifcool:
+    if len(cur.fetchall()) != 0:
         session['logged_in'] = True
         session['username'] = username
     else:
