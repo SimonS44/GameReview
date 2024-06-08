@@ -1,6 +1,6 @@
 DROP TABLE Games; 	--remove / outcomment if first time running code.
 DROP TABLE users; 	--remove / outcomment if first time running code.
-DROP TABLE reviews	--remove / outcomment if first time running code.;
+DROP TABLE reviews;	--remove / outcomment if first time running code.
 --Games
 CREATE TABLE IF NOT EXISTS Games(
     id char(3),
@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS Games(
 );
 --Import games
 COPY Games(id, title, genre, developer, releaseyear)
-FROM '\GameReview\tmp\games.csv'
+FROM 'C:\Users\simon\Desktop\DIS\GameReview\GameReview\tmp\games.csv'
 DELIMITER ','
 CSV HEADER;
 
@@ -23,6 +23,9 @@ CREATE TABLE IF NOT EXISTS users(
 	password char(20) NOT NULL,
     CONSTRAINT user_pk PRIMARY KEY (username)
 );
+
+INSERT INTO users(username, mail, password) VALUES ('q', 'q@q.q', 'q'); -- Default user for testing.
+
 --Reviews
 CREATE TABLE IF NOT EXISTS Reviews(
     gameId char(4) NOT NULL,
@@ -32,6 +35,6 @@ CREATE TABLE IF NOT EXISTS Reviews(
 );
 --Import reviews
 COPY Reviews(gameId, username, review_score, comment)
-FROM '\GameReview\tmp\Reviews.csv'
+FROM 'C:\Users\simon\Desktop\DIS\GameReview\GameReview\tmp\Reviews.csv'
 DELIMITER ','
 CSV HEADER;
