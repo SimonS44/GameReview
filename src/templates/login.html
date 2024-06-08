@@ -1,0 +1,65 @@
+<link rel="stylesheet" href="/static/style.css" type="text/css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+	href="https://fonts.googleapis.com/css2?family=Jost:wght@100&family=Press+Start+2P&display=swap"
+	rel="stylesheet"
+/>
+{% block body %}
+
+<form action="/login" method="POST">
+	<div class="login">
+		<div class="login-screen">
+			<div class="app-title">
+				<h1>Login</h1>
+			</div>
+			<div class="login-form">
+				<div class="control-group">
+					<input
+						type="text"
+						class="login-field"
+						value=""
+						placeholder="username"
+						name="username"
+					/>
+					<label class="login-field-icon fui-user" for="login-name"></label>
+				</div>
+				<div class="control-group">
+					<input
+						type="text"
+						class="login-field"
+						value=""
+						placeholder="mail"
+						name="mail"
+					/>
+					<label class="login-field-icon fui-user" for="login-mail"></label>
+				</div>
+				<div class="control-group">
+					<input
+						type="password"
+						class="login-field"
+						value=""
+						placeholder="password"
+						name="password"
+					/>
+					<label class="login-field-icon fui-lock" for="login-pass"></label>
+				</div>
+				<input
+					type="submit"
+					value="Log in"
+					class="btn btn-primary btn-large btn-block"
+					name="login"
+				/>
+			</div>
+		</div>
+	</div>
+</form>
+<a href="/createaccount">
+	<input
+		type="submit"
+		value="New Account"
+		class="btn btn-primary btn-large btn-block"
+		name="create"
+	/>
+</a>
+{% endblock %}
