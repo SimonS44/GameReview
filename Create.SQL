@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS Games(
 );
 --Import games
 COPY Games(gameId, title, genre, developer, releaseyear)
-FROM 'C:\Users\marcu\Documents\GitHub\GameReview\tmp\games.csv'
+FROM 'C:\Users\simon\Desktop\DIS\GameReview\GameReview\tmp\games.csv'
 DELIMITER ','
 CSV HEADER;
 
@@ -39,29 +39,29 @@ CREATE TABLE IF NOT EXISTS Reviews(
 );
 --Import reviews
 COPY Reviews(gameId, username, review_score, comment)
-FROM 'C:\Users\marcu\Documents\GitHub\GameReview\tmp\Reviews.csv'
+FROM 'C:\Users\simon\Desktop\DIS\GameReview\GameReview\tmp\Reviews.csv'
 DELIMITER ','
 CSV HEADER;
 
---CREATE TABLE IF NOT EXISTS Platforms(
---    platform_id SERIAL PRIMARY KEY,
---    platform_name VARCHAR(50) NOT NULL UNIQUE
---);
---
---COPY Platforms(platform_id, platform_name)
---FROM 'C:\Users\marcu\Documents\GitHub\GameReview\tmp\Platforms.csv'
---DELIMITER ','
---CSV HEADER;
---
---CREATE TABLE IF NOT EXISTS GamePlatforms(
---    gameId CHAR(3) NOT NULL,
---    platform_id INT NOT NULL,
---    CONSTRAINT fk_game FOREIGN KEY (gameId) REFERENCES Games(gameId) ON DELETE CASCADE,
---    CONSTRAINT fk_platform FOREIGN KEY (platform_id) REFERENCES Platforms(platform_id) ON DELETE CASCADE,
---    CONSTRAINT pk_game_platform PRIMARY KEY (gameId, platform_id)
---);
---
---COPY GamePlatforms(gameId, platform_id)
---FROM 'C:\Users\marcu\Documents\GitHub\GameReview\tmp\GamePlatforms.csv'
---DELIMITER ','
---CSV HEADER;
+CREATE TABLE IF NOT EXISTS Platforms(
+   platform_id SERIAL PRIMARY KEY,
+   platform_name VARCHAR(50) NOT NULL UNIQUE
+);
+
+COPY Platforms(platform_id, platform_name)
+FROM 'C:\Users\simon\Desktop\DIS\GameReview\GameReview\tmp\Platforms.csv'
+DELIMITER ','
+CSV HEADER;
+
+CREATE TABLE IF NOT EXISTS GamePlatforms(
+   gameId CHAR(3) NOT NULL,
+   platform_id INT NOT NULL,
+   CONSTRAINT fk_game FOREIGN KEY (gameId) REFERENCES Games(gameId) ON DELETE CASCADE,
+   CONSTRAINT fk_platform FOREIGN KEY (platform_id) REFERENCES Platforms(platform_id) ON DELETE CASCADE,
+   CONSTRAINT pk_game_platform PRIMARY KEY (gameId, platform_id)
+);
+
+COPY GamePlatforms(gameId, platform_id)
+FROM 'C:\Users\simon\Desktop\DIS\GameReview\GameReview\tmp\GamePlatforms.csv'
+DELIMITER ','
+CSV HEADER;
