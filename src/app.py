@@ -24,24 +24,57 @@ conn = psycopg2.connect(
     )
 cursor = conn.cursor()
 
-#Frontpage
-@app.route('/')
-def index():
-    cursor.execute('SELECT id, title FROM games order by random() LIMIT 12')
-    games = cursor.fetchall()
-    if not session.get('logged_in'):
-        return render_template('login.html')
-    return render_template('index.html', games=games)
+# #Frontpage
+# @app.route('/')
+# def index():
+#     cursor.execute('SELECT id, title FROM games order by random() LIMIT 12')
+#     games = cursor.fetchall()
+#     if not session.get('logged_in'):
+#         return render_template('login.html')
+#     return render_template('index.html', games=games)
 
-# #Search bar / search route.
 # @app.route('/search', methods=['GET', 'POST'])
 # def search():
 #     if request.method == 'POST':
-#         search_query = request.form['search_query']
-#         cursor.execute("SELECT id, title FROM games WHERE title ILIKE %s", ('%' + search_query + '%',))
+#         search_query = request.form.get('search_query', '')
+#         genre_filter = request.form.get('genre', '')
+#         developer_filter = request.form.get('developer', '')
+#         releaseyear_filter = request.form.get('releaseyear', '')
+
+#         query = "SELECT id, title FROM games WHERE title ILIKE %s"
+#         params = ['%' + search_query + '%']
+
+#         if genre_filter:
+#             query += " AND genre = %s"
+#             params.append(genre_filter)
+#         if developer_filter:
+#             query += " AND developer = %s"
+#             params.append(developer_filter)
+#         if releaseyear_filter:
+#             query += " AND releaseyear = %s"
+#             params.append(releaseyear_filter)
+
+#         cursor.execute(query, params)
 #         games = cursor.fetchall()
 #         return render_template('index.html', games=games)
 #     return redirect(url_for('index'))
+
+@app.route('/')
+def index():
+    cursor.execute('SELECT id, title FROM games ORDER BY random() LIMIT 12')
+    games = cursor.fetchall()
+    
+    # Fetch distinct values for dropdowns
+    cursor.execute('SELECT DISTINCT genre FROM games')
+    genres = cursor.fetchall()
+    cursor.execute('SELECT DISTINCT developer FROM games')
+    developers = cursor.fetchall()
+    cursor.execute('SELECT DISTINCT releaseyear FROM games ORDER BY releaseyear')
+    releaseyears = cursor.fetchall()
+
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    return render_template('index.html', games=games, genres=genres, developers=developers, releaseyears=releaseyears)
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
@@ -66,7 +99,16 @@ def search():
 
         cursor.execute(query, params)
         games = cursor.fetchall()
-        return render_template('index.html', games=games)
+        
+        # Fetch distinct values for dropdowns
+        cursor.execute('SELECT DISTINCT genre FROM games')
+        genres = cursor.fetchall()
+        cursor.execute('SELECT DISTINCT developer FROM games')
+        developers = cursor.fetchall()
+        cursor.execute('SELECT DISTINCT releaseyear FROM games ORDER BY releaseyear')
+        releaseyears = cursor.fetchall()
+
+        return render_template('index.html', games=games, genres=genres, developers=developers, releaseyears=releaseyears)
     return redirect(url_for('index'))
 
 
