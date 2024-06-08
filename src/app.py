@@ -81,6 +81,9 @@ def search():
 #When clicking on a game, presumably from the frontpage but can be used elsewhere if needed.
 @app.route('/game/<game_id>')
 def game_detail(game_id):
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    
     cursor.execute('SELECT title, genre, developer, releaseyear FROM games WHERE id = %s', (game_id,))
     game = cursor.fetchone()
     cursor.execute(f'''SELECT * FROM reviews where gameid = '{game_id}' ORDER BY random() LIMIT 10 ''')     #review test
