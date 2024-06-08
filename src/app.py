@@ -2,8 +2,8 @@ from flask import Flask, render_template, request, jsonify, flash, redirect, url
 import psycopg2
 import pandas as pd
 import os
-import config #Used and in .gitignore, so we can work on different databases.
-import re #regex
+import config       #Used and in .gitignore, so we can work on different databases.
+import re           #regex
 
 app = Flask(__name__)
 
@@ -26,32 +26,32 @@ cursor = conn.cursor()
 
 @app.route('/')
 def index():
-    cursor.execute('SELECT id, title FROM games LIMIT 10')
+    cursor.execute('SELECT id, title FROM games order by random() LIMIT 10')
     games = cursor.fetchall()
     return render_template('index.html', games=games)
 
 
 @app.route("/createaccount", methods=['POST', 'GET'])
 def createaccount():
-    cur = conn.cursor()
+    cursor = conn.cursor()
     if request.method == 'POST':
         new_username = request.form['username']
         new_mail = request.form['mail']
         new_password = request.form['password']
-        cur.execute(f'''select * from users where username = '{new_username}' ''')
-        cur.execute(f'''select * from users where mail = '{new_mail}' ''')
-        unique = cur.fetchall()
+        cursor.execute(f'''SELECT * from users where username = '{new_username}' ''')
+        cursor.execute(f'''SELECT * from users where mail = '{new_mail}' ''')
+        unique = cursor.fetchall()
         flash('Account created!')
         if  len(unique) == 0:
-            mail_pattern = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+            mail_pattern = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"  #Regex pattern for a mail
             if re.match(mail_pattern, new_mail):
-                cur.execute(f'''INSERT INTO users(username, password, mail) VALUES ('{new_username}', '{new_password}'), '{new_mail}')''')
+                cursor.execute(f'''INSERT INTO users(username, password, mail) VALUES ('{new_username}', '{new_password}'), '{new_mail}')''')
                 flash('Account created!')
                 conn.commit()
 
                 return redirect(url_for("home"))
             else:
-                flash('mail address error')
+                flash('Invalid mail')
         else: 
             flash('Username or mail already exists!')
 
