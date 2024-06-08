@@ -8,11 +8,11 @@ CREATE TABLE IF NOT EXISTS Games(
     genre char(50),
     developer char(50),
     releaseyear int,
-    CONSTRAINT games_pk PRIMARY KEY (id)
+    CONSTRAINT games_pk PRIMARY KEY (gameId)
 );
 --Import games
 COPY Games(gameId, title, genre, developer, releaseyear)
-FROM 'C:\Users\simon\Desktop\DIS\GameReview\GameReview\tmp\games.csv'
+FROM '\GameReview\tmp\games.csv'
 DELIMITER ','
 CSV HEADER;
 
@@ -31,10 +31,11 @@ CREATE TABLE IF NOT EXISTS Reviews(
     gameId char(4) NOT NULL,
     username char(20) NOT NULL,
     review_score int NOT NULL,
-    comment char(300)
+    comment char(300),
+    CONSTRAINT review_pk PRIMARY KEY (gameId, username)
 );
 --Import reviews
 COPY Reviews(gameId, username, review_score, comment)
-FROM 'C:\Users\simon\Desktop\DIS\GameReview\GameReview\tmp\Reviews.csv'
+FROM '\GameReview\tmp\Reviews.csv'
 DELIMITER ','
 CSV HEADER;
