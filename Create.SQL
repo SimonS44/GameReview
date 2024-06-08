@@ -1,14 +1,14 @@
-TRUNCATE TABLE Games RESTART IDENTITY CASCADE;
-TRUNCATE TABLE Platforms RESTART IDENTITY CASCADE;
-TRUNCATE TABLE GamePlatforms RESTART IDENTITY CASCADE;
-TRUNCATE TABLE Reviews RESTART IDENTITY CASCADE;
-TRUNCATE TABLE users RESTART IDENTITY CASCADE;
+--TRUNCATE TABLE Games RESTART IDENTITY CASCADE;
+--TRUNCATE TABLE Platforms RESTART IDENTITY CASCADE;
+--TRUNCATE TABLE GamePlatforms RESTART IDENTITY CASCADE;
+--TRUNCATE TABLE Reviews RESTART IDENTITY CASCADE;
+--TRUNCATE TABLE users RESTART IDENTITY CASCADE;
 
 DROP TABLE Games; 	--remove / outcomment if first time running code.
 DROP TABLE users; 	--remove / outcomment if first time running code.
 DROP TABLE reviews;	--remove / outcomment if first time running code.
-DROP TABLE Platforms;     --remove / outcomment if first time running code.;
-DROP TABLE GamePlatforms; --remove / outcomment if first time running code.;
+--DROP TABLE Platforms;     --remove / outcomment if first time running code.;
+--DROP TABLE GamePlatforms; --remove / outcomment if first time running code.;
 
 --Games
 CREATE TABLE IF NOT EXISTS Games(
@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS Games(
 );
 --Import games
 COPY Games(gameId, title, genre, developer, releaseyear)
-FROM '\GameReview\tmp\games.csv'
+FROM 'C:\Users\marcu\Documents\GitHub\GameReview\tmp\games.csv'
 DELIMITER ','
 CSV HEADER;
 
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS Reviews(
 );
 --Import reviews
 COPY Reviews(gameId, username, review_score, comment)
-FROM '\GameReview\tmp\Reviews.csv'
+FROM 'C:\Users\marcu\Documents\GitHub\GameReview\tmp\Reviews.csv'
 DELIMITER ','
 CSV HEADER;
 
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS Platforms(
 );
 
 COPY Platforms(platform_id, platform_name)
-FROM '\GameReview\tmp\Platforms.csv'
+FROM 'C:\Users\marcu\Documents\GitHub\GameReview\tmp\Platforms.csv'
 DELIMITER ','
 CSV HEADER;
 
@@ -68,6 +68,6 @@ CREATE TABLE IF NOT EXISTS GamePlatforms(
 );
 
 COPY GamePlatforms(gameId, platform_id)
-FROM '\GameReview\tmp\GamePlatforms.csv'
+FROM 'C:\Users\marcu\Documents\GitHub\GameReview\tmp\GamePlatforms.csv'
 DELIMITER ','
 CSV HEADER;

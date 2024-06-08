@@ -101,7 +101,7 @@ def game_detail(gameId):
     if not session.get('logged_in'):
         return render_template('login.html')
     
-    cursor.execute('SELECT title, genre, developer, releaseyear FROM games WHERE id = %s', (gameId,))
+    cursor.execute('SELECT title, genre, developer, releaseyear FROM games WHERE gameId = %s', (gameId,))
     game = cursor.fetchone()
     cursor.execute(f'''SELECT * FROM reviews where gameid = '{gameId}' ORDER BY random()''')   #review test
     allreviews = cursor.fetchall()                                                              #review test
