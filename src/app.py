@@ -32,6 +32,10 @@ def index():
         return render_template('login.html')
     return render_template('index.html', games=games)
 
+@app.route('/logout')
+def logout():
+    session['logged_in'] = False
+    return render_template('login.html')
 
 @app.route("/createaccount", methods=['POST', 'GET'])
 def createaccount():
