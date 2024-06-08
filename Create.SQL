@@ -1,6 +1,15 @@
+TRUNCATE TABLE Games RESTART IDENTITY CASCADE;
+TRUNCATE TABLE Platforms RESTART IDENTITY CASCADE;
+TRUNCATE TABLE GamePlatforms RESTART IDENTITY CASCADE;
+TRUNCATE TABLE Reviews RESTART IDENTITY CASCADE;
+TRUNCATE TABLE users RESTART IDENTITY CASCADE;
+
 DROP TABLE Games; 	--remove / outcomment if first time running code.
 DROP TABLE users; 	--remove / outcomment if first time running code.
 DROP TABLE reviews;	--remove / outcomment if first time running code.
+DROP TABLE Platforms;     --remove / outcomment if first time running code.;
+DROP TABLE GamePlatforms; --remove / outcomment if first time running code.;
+
 --Games
 CREATE TABLE IF NOT EXISTS Games(
     gameId char(3),
@@ -8,11 +17,11 @@ CREATE TABLE IF NOT EXISTS Games(
     genre char(50),
     developer char(50),
     releaseyear int,
-    CONSTRAINT games_pk PRIMARY KEY (id)
+    CONSTRAINT games_pk PRIMARY KEY (gameId)
 );
 --Import games
 COPY Games(gameId, title, genre, developer, releaseyear)
-FROM 'C:\Users\simon\Desktop\DIS\GameReview\GameReview\tmp\games.csv'
+FROM '\GameReview\tmp\games.csv'
 DELIMITER ','
 CSV HEADER;
 
@@ -31,10 +40,34 @@ CREATE TABLE IF NOT EXISTS Reviews(
     gameId char(4) NOT NULL,
     username char(20) NOT NULL,
     review_score int NOT NULL,
-    comment char(300)
+    comment char(300),
+    CONSTRAINT review_pk PRIMARY KEY (gameId, username)
 );
 --Import reviews
 COPY Reviews(gameId, username, review_score, comment)
-FROM 'C:\Users\simon\Desktop\DIS\GameReview\GameReview\tmp\Reviews.csv'
+FROM '\GameReview\tmp\Reviews.csv'
+DELIMITER ','
+CSV HEADER;
+
+CREATE TABLE IF NOT EXISTS Platforms(
+    platform_id SERIAL PRIMARY KEY,
+    platform_name VARCHAR(50) NOT NULL UNIQUE
+);
+
+COPY Platforms(platform_id, platform_name)
+FROM '\GameReview\tmp\Platforms.csv'
+DELIMITER ','
+CSV HEADER;
+
+CREATE TABLE IF NOT EXISTS GamePlatforms(
+    game_id CHAR(3) NOT NULL,
+    platform_id INT NOT NULL,
+    CONSTRAINT fk_game FOREIGN KEY (game_id) REFERENCES Games(id) ON DELETE CASCADE,
+    CONSTRAINT fk_platform FOREIGN KEY (platform_id) REFERENCES Platforms(platform_id) ON DELETE CASCADE,
+    CONSTRAINT pk_game_platform PRIMARY KEY (game_id, platform_id)
+);
+
+COPY GamePlatforms(game_id, platform_id)
+FROM '\GameReview\tmp\GamePlatforms.csv'
 DELIMITER ','
 CSV HEADER;
