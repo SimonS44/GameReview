@@ -39,41 +39,37 @@ def index():
     releaseyears = cursor.fetchall()
 
     cursor.execute('SELECT platform_id, platform_name FROM Platforms ORDER BY platform_name')
-    platform_names = cursor.fetchall()
-
+    platforms = cursor.fetchall()
     if not session.get('logged_in'):
         return render_template('login.html')
-    return render_template('index.html', games=games, genres=genres, developers=developers, releaseyears=releaseyears, platforms=platform_names)
+    return render_template('index.html', games=games, genres=genres, developers=developers, releaseyears=releaseyears, platforms=platforms)
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     if request.method == 'POST':
         search_query = request.form.get('search_query', '')
         genre_filter = request.form.get('genre', '')
+        platform_filter = request.form.get('platform', '')
         developer_filter = request.form.get('developer', '')
         releaseyear_filter = request.form.get('releaseyear', '')
-        platform_filter = request.form.get('platform', '')
-
         query = "SELECT gameId, title FROM games WHERE title ILIKE %s"
         params = ['%' + search_query + '%']
 
         if genre_filter:
             query += " AND genre = %s"
             params.append(genre_filter)
+        if platform_filter:
+           query += " AND gameId IN (SELECT gameId FROM GamePlatforms WHERE platform_id = %s)"
+           params.append(platform_filter)
+           print("platform_filter"+platform_filter)
         if developer_filter:
             query += " AND developer = %s"
             params.append(developer_filter)
         if releaseyear_filter:
             query += " AND releaseyear = %s"
             params.append(releaseyear_filter)
-        if platform_filter:
-           query += " AND gameId IN (SELECT gameId FROM GamePlatforms WHERE platform_id = %s)"
-           params.append(platform_filter)
-
-
         cursor.execute(query, params)
         games = cursor.fetchall()
-        
         # Fetch distinct values for dropdowns
         cursor.execute('SELECT DISTINCT genre FROM games')
         genres = cursor.fetchall()
@@ -81,11 +77,18 @@ def search():
         developers = cursor.fetchall()
         cursor.execute('SELECT DISTINCT releaseyear FROM games ORDER BY releaseyear')
         releaseyears = cursor.fetchall()
-
-        cursor.execute('SELECT platform_id, platform_name FROM Platforms ORDER BY platform_name')
-        platform= cursor.fetchall()
-
-        return render_template('index.html', games=games, genres=genres, developers=developers, releaseyears=releaseyears, search_query=search_query, genre_filter=genre_filter, developer_filter=developer_filter, releaseyear_filter=releaseyear_filter, platforms=platform)
+        cursor.execute('SELECT DISTINCT platform_id, platform_name FROM Platforms ORDER BY platform_name')
+        platforms= cursor.fetchall()
+        
+        #print("developer_filter         : ["+developer_filter+"]")
+        #print("developers[0][0]         : ["+developers[0][0]+"]")
+        #print("releaseyear_filter       : ["+releaseyear_filter+"]")
+        #print("releaseyears[0][0]       : ["+releaseyears[0][0]+"]")
+        #print("genre_filter             : ["+genre_filter+"]")
+        #print("genres[0][0]             : ["+genres[0][0]+"]")
+        #print("platform_filter          : ["+platform_filter+"]")
+        #print("platforms[0][0]          : ["+platforms[0][0]+"]")
+        return render_template('index.html', games=games, genres=genres, developers=developers, releaseyears=releaseyears, search_query=search_query, genre_filter=genre_filter, developer_filter=developer_filter, releaseyear_filter=releaseyear_filter, platforms=platforms)
     return redirect(url_for('index'))
 
 
@@ -97,7 +100,7 @@ def game_detail(gameId):
     
     cursor.execute('SELECT title, genre, developer, releaseyear FROM games WHERE gameId = %s', (gameId,))
     game = cursor.fetchone()
-    cursor.execute(f'''SELECT * FROM reviews where gameid = '{gameId}' ORDER BY random()''')   #review test
+    cursor.execute(f'''SELECT * FROM reviews where gameid = '{gameId}' ORDER BY random()''')    #review test
     allreviews = cursor.fetchall()                                                              #review test
     average = 0
     if len(allreviews)>0:
