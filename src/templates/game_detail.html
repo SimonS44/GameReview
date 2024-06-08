@@ -44,6 +44,13 @@
         #comment {
             margin-top: 50px;
         }
+        .review-box {
+            border: 1px solid white;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -91,9 +98,9 @@
             </div>
             <div class="column" id="column3">
                 {% for review in reviews %}
-                    <div class="game">
-                        <p><strong>{{ review[1] }}<br>{{ review[2] }} / 10</strong><br>{{ review[3] }}</p>
-                    </div>
+                <div class="review-box"> <!-- Updated HTML to include review-box class -->
+                    <p><strong>{{ review[1] }}<br>{{ review[2] }} / 10</strong><br>{{ review[3] }}</p>
+                </div>
                 {% endfor %}
             </div>
         </div>
