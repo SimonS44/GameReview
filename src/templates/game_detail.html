@@ -90,9 +90,11 @@
                 </div>
             </div>
             <div class="column" id="column3">
-                <p><strong>{{ reviews[0][1] }} ( {{ reviews[0][2] }} / 10 stars):</strong> {{ reviews[0][3] }}</p>
-                <p><strong>{{ reviews[1][1] }} ( {{ reviews[1][2] }} / 10 stars):</strong> {{ reviews[1][3] }}</p>
-                <p><strong>{{ reviews[2][1] }} ( {{ reviews[2][2] }} / 10 stars):</strong> {{ reviews[2][3] }}</p>
+                {% for review in reviews %}
+                    <div class="game">
+                        <p><strong>{{ review[1] }}<br>{{ review[2] }} / 10</strong><br>{{ review[3] }}</p>
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </div>
