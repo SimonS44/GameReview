@@ -85,8 +85,6 @@ def game_detail(game_id):
     game = cursor.fetchone()
     cursor.execute(f'''SELECT * FROM reviews where gameid = '{game_id}' ORDER BY random() LIMIT 10 ''')     #review test
     reviews = cursor.fetchall()                                                                             #review test
-    for _ in range(len(reviews), 10):
-        reviews.append(["","",""])
     if game:
         return render_template('game_detail.html', game=game, game_id=game_id, reviews=reviews)
     else:
@@ -107,7 +105,6 @@ def createaccount():
         new_password = request.form['password']
         cursor.execute(f'''SELECT * FROM users where username = '{new_username}' ''')
         unique_username = cursor.fetchall()
-        
         cursor.execute(f'''SELECT * from users where mail = '{new_mail}' ''')
         unique_mail = cursor.fetchall()
         flash('Account created!')
