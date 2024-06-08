@@ -24,6 +24,7 @@ conn = psycopg2.connect(
     )
 cursor = conn.cursor()
 
+#Frontpage
 @app.route('/')
 def index():
     cursor.execute('SELECT id, title FROM games order by random() LIMIT 12')
@@ -32,6 +33,17 @@ def index():
         return render_template('login.html')
     return render_template('index.html', games=games)
 
+#When clicking on a game, presumably from the frontpage but can be used elsewhere if needed.
+@app.route('/game/<game_id>')
+def game_detail(game_id):
+    cursor.execute('SELECT title, genre, developer, releaseyear FROM games WHERE id = %s', (game_id,))
+    game = cursor.fetchone()
+    if game:
+        return render_template('game_detail.html', game=game, game_id=game_id)
+    else:
+        return "Game not found", 404
+
+#logout button.
 @app.route('/logout')
 def logout():
     session['logged_in'] = False
