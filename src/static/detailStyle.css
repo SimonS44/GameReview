@@ -19,7 +19,6 @@ body {
         padding: 20px;
         border-radius: 8px;
     }
-    /* Responsive adjustments */
     @media (max-width: 900px) {
         .column {
             flex: 100%;
