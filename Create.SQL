@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS Games(
 );
 
 COPY Games(id, title, genre, developer, releaseyear)
-FROM 'YOUR_PATH\GameReview\tmp\games.csv'
+FROM 'C:\Users\45251\Desktop\AU\KU\Database systems\Project\GameReview\tmp\games.csv'
 DELIMITER ','
 CSV HEADER;
 
