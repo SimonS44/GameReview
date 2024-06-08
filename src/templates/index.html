@@ -1,62 +1,8 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Welcome to GameReview</title>
-    <link rel="stylesheet" href="/static/style.css" type="text/css" />
-    <style>
-        .logout-btn {
-            position: absolute;
-            top: 100px; /* Adjust this value to change the vertical position */
-            right: 120px; /* Adjust this value to change the horizontal position */
-            background-color: #0360bd; /* Match the game background color */
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-        }
-        .logout-btn:hover {
-            background-color: #003d75; /* Slightly darker shade for hover effect */
-        }
-        .games {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px; /* Add some spacing between the items */
-        }
-        .game {
-            border: 2px solid pink;
-            padding: 10px;
-            text-align: center;
-            background-color: #001f3f; /* Dark blue background */
-            color: white; /* White text */
-            width: 256px; /* Fixed width to match the image width */
-        }
-        .game img {
-            width: 256px;
-            height: 330px;
-            object-fit: cover;
-        }
-    </style>
-</head>
-<body>
-    <button class="logout-btn" onclick="window.location.href='/logout'">Logout</button>
-    <h1>Welcome to GameReview</h1>
-    <div class="games">
-        {% for game in games %}
-            <div class="game">
-                <h2>{{ game[1] }}</h2>
-                <img src="{{ url_for('static', filename='images/' + game[0].strip() + '.jpg') }}" alt="{{ game[1] }}">
-            </div>
-        {% endfor %}
-    </div>
-</body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome to GameReview</title>
+    <title>Welcome to GameBase</title>
     <link rel="stylesheet" href="/static/style.css" type="text/css" />
     <style>
         .logout-btn {
