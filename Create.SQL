@@ -1,6 +1,6 @@
-DROP TABLE Games; --remove / outcomment if first time running code.
-DROP TABLE users; --remove / outcomment if first time running code.
-DROP TABLE reviews;
+DROP TABLE Games; 	--remove / outcomment if first time running code.
+DROP TABLE users; 	--remove / outcomment if first time running code.
+DROP TABLE reviews	--remove / outcomment if first time running code.;
 --Games
 CREATE TABLE IF NOT EXISTS Games(
     id char(3),
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS Reviews(
     comment char(300)
 );
 --Import reviews
-COPY Reviews(gameId, username, title, review_score, comment)
+COPY Reviews(gameId, username, review_score, comment)
 FROM '\GameReview\tmp\Reviews.csv'
 DELIMITER ','
 CSV HEADER;
