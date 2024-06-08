@@ -52,7 +52,7 @@ def search():
         genre_filter = request.form.get('genre', '')
         developer_filter = request.form.get('developer', '')
         releaseyear_filter = request.form.get('releaseyear', '')
-        platform_filter = request.form.get('platform_name', '')
+        platform_filter = request.form.get('platform', '')
 
         query = "SELECT gameId, title FROM games WHERE title ILIKE %s"
         params = ['%' + search_query + '%']
@@ -67,7 +67,7 @@ def search():
             query += " AND releaseyear = %s"
             params.append(releaseyear_filter)
         if platform_filter:
-           query += " AND id IN (SELECT gameId FROM GamePlatforms WHERE platform_id = %s)"
+           query += " AND gameId IN (SELECT gameId FROM GamePlatforms WHERE platform_id = %s)"
            params.append(platform_filter)
 
 
@@ -82,10 +82,10 @@ def search():
         cursor.execute('SELECT DISTINCT releaseyear FROM games ORDER BY releaseyear')
         releaseyears = cursor.fetchall()
 
-        cursor.execute('SELECT DISTINCT platform_name FROM Platforms ORDER BY platform_name')
-        platform_names = cursor.fetchall()
+        cursor.execute('SELECT platform_id, platform_name FROM Platforms ORDER BY platform_name')
+        platform= cursor.fetchall()
 
-        return render_template('index.html', games=games, genres=genres, developers=developers, releaseyears=releaseyears, search_query=search_query, genre_filter=genre_filter, developer_filter=developer_filter, releaseyear_filter=releaseyear_filter, platforms=platform_names)
+        return render_template('index.html', games=games, genres=genres, developers=developers, releaseyears=releaseyears, search_query=search_query, genre_filter=genre_filter, developer_filter=developer_filter, releaseyear_filter=releaseyear_filter, platforms=platform)
     return redirect(url_for('index'))
 
 
