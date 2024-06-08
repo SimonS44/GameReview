@@ -51,18 +51,6 @@
             border-radius: 5px;
             background-color: rgba(255, 255, 255, 0.1);
         }
-        .stars {
-            display: inline-block;
-            font-size: 0;
-        }
-        .stars::before {
-            content: "★★★★★★★★★★";
-            font-size: 2em;
-            letter-spacing: 3px;
-            background: linear-gradient(90deg, yellow calc(var(--rating) * 10%), black calc(var(--rating) * 10%));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
     </style>
 </head>
 <body>
@@ -79,11 +67,10 @@
             <div class="column" id="column2">
                 <div><!-- Average Rating -->
                     <p><strong>Average rating:</strong> {{ average }}</p>
-                    <div class="stars" style="--rating: 0.33;"></div>
                 </div>
                 <div><!-- Stars -->
-                    <form>
-                        <div class="star-rating"  oninput="updateCharacterCount()">
+                    <form method="POST" action="{{ url_for('submit_review', game_id=game_id) }}">
+                        <div class="star-rating" oninput="updateCharacterCount()">
                             <input type="radio" id="star10" name="rating" value="10"><label for="star10">&#9733;</label>
                             <input type="radio" id="star9" name="rating" value="9"><label for="star9">&#9733;</label>
                             <input type="radio" id="star8" name="rating" value="8"><label for="star8">&#9733;</label>
@@ -95,18 +82,15 @@
                             <input type="radio" id="star2" name="rating" value="2"><label for="star2">&#9733;</label>
                             <input type="radio" id="star1" name="rating" value="1"><label for="star1">&#9733;</label>
                         </div>
-                    </form>
                     
-                    <div id="selectedRating">
-                        Select Rating
-                    </div>
-                </div>
-                <div>
-                    <form>
-                        <textarea id="comment" name="comment" rows="10" cols="50" maxlength="300" placeholder="Write your comment here..." value="test" oninput="updateCharacterCount()"></textarea><br>
+                        <div id="selectedRating">
+                            Select Rating
+                        </div>
+                    
+                        <textarea id="comment" name="comment" rows="10" cols="50" maxlength="300" placeholder="Write your comment here..." oninput="updateCharacterCount()"></textarea><br>
                         <span id="charCount">300 characters remaining</span><br><br>
-                        
-                        <button type="button" onclick="submitComment()">Update rating</button>
+                    
+                        <button type="submit">Submit review</button>
                     </form>
                 </div>
             </div>
@@ -124,8 +108,7 @@
     </div>
     <script>
         //average----------------------------------------------------------------------------------------------------------------
-        let rating = 3.3; // Example variable for the rating
-        document.querySelector('.stars').style.setProperty('--rating', rating / 10);
+
         //average----------------------------------------------------------------------------------------------------------------
         //Personal---------------------------------------------------------------------------------------------------------------
         const ratingInputs = document.querySelectorAll('.star-rating input');
