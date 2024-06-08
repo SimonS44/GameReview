@@ -1,8 +1,23 @@
-<link rel="stylesheet" href="/static/style.css" type="text/css" />
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Welcome to GameReview</title>
+    <link rel="stylesheet" href="/static/style.css" type="text/css" />
     <style>
+        .logout-btn {
+            position: absolute;
+            top: 100px; /* Adjust this value to change the vertical position */
+            right: 120px; /* Adjust this value to change the horizontal position */
+            background-color: #0360bd; /* Match the game background color */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        .logout-btn:hover {
+            background-color: #003d75; /* Slightly darker shade for hover effect */
+        }
         .games {
             display: flex;
             flex-wrap: wrap;
@@ -24,6 +39,7 @@
     </style>
 </head>
 <body>
+    <button class="logout-btn" onclick="window.location.href='/logout'">Logout</button>
     <h1>Welcome to GameReview</h1>
     <div class="games">
         {% for game in games %}

@@ -26,12 +26,16 @@ cursor = conn.cursor()
 
 @app.route('/')
 def index():
-    cursor.execute('SELECT id, title FROM games order by random() LIMIT 10')
+    cursor.execute('SELECT id, title FROM games order by random() LIMIT 12')
     games = cursor.fetchall()
     if not session.get('logged_in'):
         return render_template('login.html')
     return render_template('index.html', games=games)
 
+@app.route('/logout')
+def logout():
+    session['logged_in'] = False
+    return render_template('login.html')
 
 @app.route("/createaccount", methods=['POST', 'GET'])
 def createaccount():
