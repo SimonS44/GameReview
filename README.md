@@ -6,7 +6,7 @@ RUNNING THE CODE:
 1) Install the dependencies: pip install -r requirements.txt
 2) Start up your database
 3) In the config.py-file, input your database information
-4) run config.py from the GameReview folder, this will add the csv files to the database 
+4) run config.py from the GameReview or src folder, this will add the csv files to the database 
     (If it does not work go into the setup file and replace line 19)
 
 Osv.
