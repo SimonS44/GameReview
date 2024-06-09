@@ -82,7 +82,7 @@
                 <div><!-- Average Rating -->
                     <p><strong>Average rating:</strong> {{ average }}</p>
                 </div>
-                <div><!-- Stars -->
+                <div><!-- Stars     THEY ARE WACK ON ZOOM, DON'T DO THAT!-->
                     <form method="POST" action="{{ url_for('submit_review', gameId=gameId) }}">
                         <div class="star-rating" oninput="updateCharacterCount()">
                             <input type="radio" id="star10" name="rating" value="10"><label for="star10">&#9733;</label>
