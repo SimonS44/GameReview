@@ -1,5 +1,5 @@
 # GameBase
-![](src/static/images/GameBaseLogo_Transparent.png)
+![](src/static/images/GameBaseLogo_Transparent.png | width=100)
 Created on Windows 11 and 1920x1080 monitor. Works on other setups, but might appear slightly different.
 
 # RUNNING THE CODE:
@@ -19,7 +19,7 @@ Created on Windows 11 and 1920x1080 monitor. Works on other setups, but might ap
 
 # Using the application:
 
-
+(1) Create account / Press the 'Create Account' button, you then get to page where you choose your username and password.
 
 
 
