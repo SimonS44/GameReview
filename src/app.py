@@ -80,15 +80,12 @@ def search():
         cursor.execute('SELECT DISTINCT platform_id, platform_name FROM Platforms ORDER BY platform_name')
         platforms= cursor.fetchall()
         
-        #print("developer_filter         : ["+developer_filter+"]")
-        #print("developers[0][0]         : ["+developers[0][0]+"]")
-        #print("releaseyear_filter       : ["+releaseyear_filter+"]")
-        #print("releaseyears[0][0]       : ["+releaseyears[0][0]+"]")
-        #print("genre_filter             : ["+genre_filter+"]")
-        #print("genres[0][0]             : ["+genres[0][0]+"]")
-        #print("platform_filter          : ["+platform_filter+"]")
-        #print("platforms[0][0]          : ["+platforms[0][0]+"]")
-        return render_template('index.html', games=games, genres=genres, developers=developers, releaseyears=releaseyears, search_query=search_query, genre_filter=genre_filter, developer_filter=developer_filter, releaseyear_filter=releaseyear_filter, platforms=platforms)
+        platformName=''
+        if platform_filter:
+            cursor.execute(f'''SELECT platform_name FROM Platforms where platform_id = '{platform_filter}' ''') #Fix for platform bug
+            platformName = cursor.fetchall()[0][0]
+        
+        return render_template('index.html', games=games, genres=genres, developers=developers,platformName = platformName, platforms=platforms, releaseyears=releaseyears, search_query=search_query, genre_filter=genre_filter, developer_filter=developer_filter, releaseyear_filter=releaseyear_filter)
     return redirect(url_for('index'))
 
 

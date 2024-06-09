@@ -95,7 +95,7 @@
             <select name="platform">
                 <option value="">Select Platform</option>
                 {% for platform in platforms %}
-                    <option value="{{    platform[0] }}" {% if    platform[0] ==    platform_filter %}selected{% endif %}>{{    platform[1] }}</option>
+                    <option value="{{    platform[0] }}" {% if    platform[1] ==    platformName %}selected{% endif %}>{{    platform[1] }}</option>
                 {% endfor %}
             </select>
             <select name="developer">
