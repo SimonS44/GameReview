@@ -1,5 +1,7 @@
 # GameBase
-<img src ="src/static/images/GameBaseLogo_Transparent.png" width="300" align="center">
+<p align="center">
+    <img src ="src/static/images/GameBaseLogo_Transparent.png" width="300" >
+</p>
 Created on Windows 11 and 1920x1080 monitor. Works on other setups, but might appear slightly different.
 
 # RUNNING THE CODE:
