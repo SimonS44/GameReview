@@ -57,7 +57,7 @@ try:
         CONSTRAINT user_pk PRIMARY KEY (username)
     );
 
-    INSERT INTO users(username, mail, password) VALUES ('q', 'q@q.q', 'q'); -- Default user for testing.
+    --INSERT INTO users(username, mail, password) VALUES ('q', 'q@q.q', 'q'); -- Default user for testing.
 
     --Reviews
     CREATE TABLE IF NOT EXISTS Reviews(
