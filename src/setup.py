@@ -12,7 +12,7 @@ try:
     DB_HOST = config.DB_HOST    #'your_db_host'
     DB_PORT = config.DB_PORT    #'your_db_port'
     
-    #replace with your '/GameReview' path if it does not work 
+    #replace with your '/GameReview' path if it does not work:
     #base_path = 'PATH/GameReview'
     
     conn = psycopg2.connect(
