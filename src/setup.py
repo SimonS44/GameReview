@@ -2,21 +2,19 @@ import config       #Used and in .gitignore, so we can work on different databas
 import psycopg2
 import os
 
-
-#base_path = os.path.abspath(os.getcwd()) #replace with your path if it does not work\GameReview
 try:
-     
-    base_path = os.path.normpath(os.getcwd())
-    x = base_path[len(base_path)-10:]
-    print(x)
-    if x != 'GameReview':
-        base_path = os.path.normpath(os.getcwd() + os.sep + os.pardir)
+    base_path = os.path.normpath(os.getcwd())                               #Get '/GameReview' path
+    if base_path[len(base_path)-10:] != 'GameReview':                       #if the path is wrong
+        base_path = os.path.normpath(os.getcwd() + os.sep + os.pardir)      #Get '/GameReview' path from '/GameReview/src'
     DB_NAME = config.DB_NAME    #'your_db_name'
     DB_USER = config.DB_USER    #'your_db_user'
     DB_PASS = config.DB_PASS    #'your_db_password'
     DB_HOST = config.DB_HOST    #'your_db_host'
     DB_PORT = config.DB_PORT    #'your_db_port'
-    # set your own database name, username and password
+    
+    #replace with your '/GameReview' path if it does not work 
+    #base_path = 'PATH/GameReview'
+    
     conn = psycopg2.connect(
         dbname=DB_NAME,
         user=DB_USER,
@@ -25,14 +23,18 @@ try:
         port=DB_PORT
     )
     cursor = conn.cursor()
-    create_tables_query = '''
+    create_query = '''
+    --------------------------------
+    --RESET EVERYTHING FOR TESTING
+    --remove / outcomment if first time running code.
+    DROP TABLE Games CASCADE;
+    DROP TABLE users;
+    DROP TABLE reviews;
+    DROP TABLE Platforms CASCADE;
+    DROP TABLE GamePlatforms;
+    --------------------------------
+    
     --Games
-    DROP TABLE Games CASCADE; 	        --remove / outcomment if first time running code.
-    DROP TABLE users; 	                --remove / outcomment if first time running code.
-    DROP TABLE reviews;	                --remove / outcomment if first time running code.
-    DROP TABLE Platforms CASCADE;       --remove / outcomment if first time running code.
-    DROP TABLE GamePlatforms;           --remove / outcomment if first time running code.
-
     CREATE TABLE IF NOT EXISTS Games(
         gameId char(3),
         title char(50),
@@ -95,13 +97,13 @@ try:
     CSV HEADER;
     '''
 
-    copy_query = create_tables_query % (f"'{base_path}/tmp/games.csv'", f"'{base_path}/tmp/Reviews.csv'", f"'{base_path}/tmp/Platforms.csv'", f"'{base_path}/tmp/GamePlatforms.csv'")
+    copy_query = create_query % (f"'{base_path}/tmp/games.csv'", f"'{base_path}/tmp/Reviews.csv'", f"'{base_path}/tmp/Platforms.csv'", f"'{base_path}/tmp/GamePlatforms.csv'")
 
     cursor.execute(copy_query)
     conn.commit()
 
     cursor.close()
     conn.close()
-    print("Done!")
+    print("Setup complete!")
 except:
-    print("error dir is wack")
+    print("error dir is wack, see line 15/16 in setup.py for possible fix")
