@@ -3,9 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ game[0] }}</title>
-    <link rel="stylesheet" href="/static/detailStyle.css" type="text/css" />
+    <link rel="stylesheet" href="/static/style.css" type="text/css" />
     
     <style>
+        .game-detail button {
+            padding: 10px;
+            margin: 0 5px;
+            border: 2px solid #001f3f;
+            border-radius: 5px;
+            background-color: white;
+        }
+        .game-detail textarea {
+            padding: 10px;
+            margin: 0 5px;
+            border: 2px solid #001f3f;
+            border-radius: 5px;
+            background-color: white;
+        }
         .game-detail {
             text-align: center;
             color: white;
@@ -83,11 +97,9 @@
                             <input type="radio" id="star1" name="rating" value="1"><label for="star1">&#9733;</label>
                         </div>
                     
-                        <div id="selectedRating">
-                            Select Rating
-                        </div>
+                        <div id="selectedRating">{{rating}}</div><!--Select Rating-->
                     
-                        <textarea id="comment" name="comment" rows="10" cols="50" maxlength="300" placeholder="Write your comment here..." oninput="updateCharacterCount()"></textarea><br>
+                        <textarea id="comment" name="comment" rows="10" cols="50" maxlength="300" value="testing" placeholder="Write your comment here..." oninput="updateCharacterCount()">{{comment}}</textarea><br>
                         <span id="charCount">300 characters remaining</span><br><br>
                     
                         <button type="submit">Submit review</button>
@@ -113,10 +125,9 @@
         //Personal---------------------------------------------------------------------------------------------------------------
         const ratingInputs = document.querySelectorAll('.star-rating input');
         const selectedRatingDiv = document.getElementById('selectedRating');
-
         ratingInputs.forEach(input => {
             input.addEventListener('change', () => {
-                const selectedValue = input.value;
+                selectedValue = input.value;
                 selectedRatingDiv.textContent = `${selectedValue}/10 stars`;
             });
         });

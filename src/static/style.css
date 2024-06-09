@@ -1,6 +1,36 @@
 body {
     font-family: Arial, sans-serif;
-    background: url('https://static.vecteezy.com/system/resources/previews/034/324/787/non_2x/dark-cave-game-background-tillable-horizontally-dark-terrible-empty-place-with-rock-lighting-walls-in-side-view-for-2d-games-location-illustration-vector.jpg') no-repeat center center/cover;  /*just for testing*/
-    color: rgba(255,255,255,0.8);
+    background: linear-gradient(135deg, #2c3e50, #2e4a63 25%, #283e51 50%, #1c2833 75%, #0a0f14);
+    background-attachment: fixed;
+    height: 100vh;
+    margin: 0;
+    color: rgba(0, 204, 255, 0.8);
     padding: 50px;
+    }
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        height: 100vh;
+        padding: 10px;
+    }
+    
+    .column {
+        flex: 1;
+        min-width: 300px;
+        margin: 10px;
+        padding: 20px;
+        border-radius: 8px;
+    }
+    @media (max-width: 900px) {
+        .column {
+            flex: 100%;
+            max-width: 100%;
+        }
+    }
+    
+    @media (min-width: 901px) {
+        .column {
+            flex: 1;
+        }
     }

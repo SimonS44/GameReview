@@ -10,12 +10,12 @@ CREATE TABLE IF NOT EXISTS Games(
     title char(50),
     genre char(50),
     developer char(50),
-    releaseyear int,
+    releaseyear char(4),
     CONSTRAINT games_pk PRIMARY KEY (gameId)
 );
 --Import games
 COPY Games(gameId, title, genre, developer, releaseyear)
-FROM 'C:\Users\simon\Desktop\DIS\GameReview\GameReview\tmp\games.csv'
+FROM '\GameReview\tmp\games.csv'
 DELIMITER ','
 CSV HEADER;
 
@@ -39,29 +39,30 @@ CREATE TABLE IF NOT EXISTS Reviews(
 );
 --Import reviews
 COPY Reviews(gameId, username, review_score, comment)
-FROM 'C:\Users\simon\Desktop\DIS\GameReview\GameReview\tmp\Reviews.csv'
+FROM '\GameReview\tmp\Reviews.csv'
 DELIMITER ','
 CSV HEADER;
 
 CREATE TABLE IF NOT EXISTS Platforms(
-   platform_id SERIAL PRIMARY KEY,
-   platform_name VARCHAR(50) NOT NULL UNIQUE
+   platform_id char(2) NOT NULL,
+   platform_name VARCHAR(50) NOT NULL UNIQUE,
+   CONSTRAINT platforms_pk PRIMARY KEY (platform_id)
 );
 
 COPY Platforms(platform_id, platform_name)
-FROM 'C:\Users\simon\Desktop\DIS\GameReview\GameReview\tmp\Platforms.csv'
+FROM '\GameReview\tmp\Platforms.csv'
 DELIMITER ','
 CSV HEADER;
 
 CREATE TABLE IF NOT EXISTS GamePlatforms(
    gameId CHAR(3) NOT NULL,
-   platform_id INT NOT NULL,
+   platform_id char(2) NOT NULL,
    CONSTRAINT fk_game FOREIGN KEY (gameId) REFERENCES Games(gameId) ON DELETE CASCADE,
    CONSTRAINT fk_platform FOREIGN KEY (platform_id) REFERENCES Platforms(platform_id) ON DELETE CASCADE,
    CONSTRAINT pk_game_platform PRIMARY KEY (gameId, platform_id)
 );
 
 COPY GamePlatforms(gameId, platform_id)
-FROM 'C:\Users\simon\Desktop\DIS\GameReview\GameReview\tmp\GamePlatforms.csv'
+FROM '\GameReview\tmp\GamePlatforms.csv'
 DELIMITER ','
 CSV HEADER;

@@ -61,7 +61,7 @@
             gap: 10px;
         }
         .game {
-            border: 2px solid pink;
+            border: 2px solid rgb(192, 251, 255);
             padding: 10px;
             text-align: center;
             background-color: #001f3f;
@@ -95,13 +95,13 @@
             <select name="platform">
                 <option value="">Select Platform</option>
                 {% for platform in platforms %}
-                    <option value="{{ platform[0] }}">{{ platform[1] }}</option>
+                    <option value="{{    platform[0] }}" {% if    platform[1] ==    platformName %}selected{% endif %}>{{    platform[1] }}</option>
                 {% endfor %}
             </select>
             <select name="developer">
                 <option value="">Select Developer</option>
                 {% for developer in developers %}
-                    <option value="{{ developer[0] }}" {% if developer[0] == developer_filter %}selected{% endif %}>{{ developer[0] }}</option>
+                    <option value="{{   developer[0] }}" {% if   developer[0] ==   developer_filter %}selected{% endif %}>{{   developer[0] }}</option>
                 {% endfor %}
             </select>
             <select name="releaseyear">
