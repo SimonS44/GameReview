@@ -1,10 +1,30 @@
-DROP TABLE Games CASCADE; 	--remove / outcomment if first time running code.
-DROP TABLE users; 	--remove / outcomment if first time running code.
-DROP TABLE reviews;	--remove / outcomment if first time running code.
-DROP TABLE Platforms CASCADE;     --remove / outcomment if first time running code.;
-DROP TABLE GamePlatforms; --remove / outcomment if first time running code.;
+import config       #Used and in .gitignore, so we can work on different databases.
+import psycopg2
+import os
+DB_NAME = config.DB_NAME    #'your_db_name'
+DB_USER = config.DB_USER    #'your_db_user'
+DB_PASS = config.DB_PASS    #'your_db_password'
+DB_HOST = config.DB_HOST    #'your_db_host'
+DB_PORT = config.DB_PORT    #'your_db_port'
+# set your own database name, username and password
+conn = psycopg2.connect(
+        dbname=DB_NAME,
+        user=DB_USER,
+        password=DB_PASS,
+        host=DB_HOST,
+        port=DB_PORT
+    )
+cursor = conn.cursor()
 
+base_path = os.path.abspath(os.getcwd()) #replace with your path if it does not work\GameReview
+create_tables_query = '''
 --Games
+DROP TABLE Games CASCADE; 	        --remove / outcomment if first time running code.
+DROP TABLE users; 	                --remove / outcomment if first time running code.
+DROP TABLE reviews;	                --remove / outcomment if first time running code.
+DROP TABLE Platforms CASCADE;       --remove / outcomment if first time running code.
+DROP TABLE GamePlatforms;           --remove / outcomment if first time running code.
+
 CREATE TABLE IF NOT EXISTS Games(
     gameId char(3),
     title char(50),
@@ -15,7 +35,7 @@ CREATE TABLE IF NOT EXISTS Games(
 );
 --Import games
 COPY Games(gameId, title, genre, developer, releaseyear)
-FROM '\GameReview\tmp\games.csv'
+FROM %s
 DELIMITER ','
 CSV HEADER;
 
@@ -39,7 +59,7 @@ CREATE TABLE IF NOT EXISTS Reviews(
 );
 --Import reviews
 COPY Reviews(gameId, username, review_score, comment)
-FROM '\GameReview\tmp\Reviews.csv'
+FROM %s
 DELIMITER ','
 CSV HEADER;
 
@@ -50,7 +70,7 @@ CREATE TABLE IF NOT EXISTS Platforms(
 );
 
 COPY Platforms(platform_id, platform_name)
-FROM '\GameReview\tmp\Platforms.csv'
+FROM %s
 DELIMITER ','
 CSV HEADER;
 
@@ -63,6 +83,14 @@ CREATE TABLE IF NOT EXISTS GamePlatforms(
 );
 
 COPY GamePlatforms(gameId, platform_id)
-FROM '\GameReview\tmp\GamePlatforms.csv'
-DELIMITER ','
+FROM %s
 CSV HEADER;
+'''
+
+copy_query = create_tables_query % (f"'{base_path}/tmp/games.csv'", f"'{base_path}/tmp/Reviews.csv'", f"'{base_path}/tmp/Platforms.csv'", f"'{base_path}/tmp/GamePlatforms.csv'")
+
+cursor.execute(copy_query)
+conn.commit()
+
+cursor.close()
+conn.close()
