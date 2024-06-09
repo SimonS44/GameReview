@@ -142,8 +142,8 @@ def submit_review(gameId):
 @app.route('/profile')
 def profile():
     username = session.get('username')  # Retrieve username from session
-    if not username:
-        return redirect(url_for('logout'))
+    if not session.get('logged_in'):
+        return render_template('login.html')
     
     cur = conn.cursor()
     cur.execute('''
