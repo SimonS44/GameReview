@@ -14,7 +14,6 @@ body {
         height: 100vh;
         padding: 10px;
     }
-    
     .column {
         flex: 1;
         min-width: 300px;

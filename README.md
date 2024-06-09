@@ -1,8 +1,8 @@
-# GameReview
+# GameBase
 ![](src/static/images/GameBaseLogo_Transparent.png)
 Created on Windows 11 and 1920x1080 monitor. Works on other setups, but might appear slightly different.
 
-RUNNING THE CODE:
+# RUNNING THE CODE:
 
 1) Install the dependencies
 >$ pip install -r requirements.txt
@@ -17,9 +17,7 @@ RUNNING THE CODE:
 5) Run Web-App:
 >$ python src/app.py
 
-Osv.
-
-Using the application:
+# Using the application:
 
 
 
