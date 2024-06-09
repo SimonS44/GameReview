@@ -106,8 +106,22 @@ def game_detail(gameId):
             sum = sum + allreviews[i][2]
         average = round(sum/len(allreviews),1)
     reviews = allreviews[:5]
+
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    rating = "Select Rating"
+    comment = ""
+    username = session.get('username')  # Retrieve username from session
+    cur = conn.cursor()
+    # Check if a review by this user for this game already exists
+    cur.execute('SELECT * FROM Reviews WHERE gameId = %s AND username = %s', (gameId, username))
+    existing_review = cur.fetchone()
+    if existing_review:
+        rating = str(existing_review[2])+"/10 stars"
+        comment = existing_review[3][:(len(existing_review[3].strip()))]
+        #TODO Find a way to update the stars with rating
     if game:
-        return render_template('game_detail.html', game=game, gameId=gameId, reviews=reviews, average=average)
+        return render_template('game_detail.html', game=game, gameId=gameId, reviews=reviews, average=average, comment=comment, rating=rating)
     else:
         return "Game not found", 404
 
