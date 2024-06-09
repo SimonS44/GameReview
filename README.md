@@ -27,13 +27,13 @@ Created on Windows 11 and 1920x1080 monitor. Works on other setups, but might ap
 
 3) Home / On the Home tab you will see some random games and you have access some different filter options.
 
-4) Searching / You can search with a combination of Genre, Platform, Developer, Release Year and Title
+4) Searching / You can search with a combination of Genre, Platform, Developer, Release Year and Title.
 
-5) Games / When you click on a game you get taken the their detail page, here you can see information about the game, see the reviews of other accounts or submit your own review
+5) Games / When you click on a game you get taken the their detail page, here you can see information about the game, see the reviews of other accounts or submit your own review.
 
-6) Profile / On your profile you can see all of the reviews you have made, and you can easily access the game you made them on
+6) Profile / On your profile you can see all of the reviews you have made, and you can easily access the game you made them on.
 
-7) Logout / Log out of your account and return to Login
+7) Logout / Log out of your account and return to Login.
 
 
 
