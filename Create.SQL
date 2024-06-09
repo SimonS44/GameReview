@@ -1,8 +1,12 @@
-DROP TABLE Games CASCADE; 	--remove / outcomment if first time running code.
-DROP TABLE users; 	--remove / outcomment if first time running code.
-DROP TABLE reviews;	--remove / outcomment if first time running code.
-DROP TABLE Platforms CASCADE;     --remove / outcomment if first time running code.;
-DROP TABLE GamePlatforms; --remove / outcomment if first time running code.;
+--------------------------------
+----RESET EVERYTHING FOR TESTING
+----remove / outcomment if first time running code.
+--DROP TABLE Games CASCADE;
+--DROP TABLE users;
+--DROP TABLE reviews;
+--DROP TABLE Platforms CASCADE;
+--DROP TABLE GamePlatforms;
+--------------------------------
 
 --Games
 CREATE TABLE IF NOT EXISTS Games(

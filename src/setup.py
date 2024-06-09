@@ -25,13 +25,13 @@ try:
     cursor = conn.cursor()
     create_query = '''
     --------------------------------
-    --RESET EVERYTHING FOR TESTING
-    --remove / outcomment if first time running code.
-    DROP TABLE Games CASCADE;
-    DROP TABLE users;
-    DROP TABLE reviews;
-    DROP TABLE Platforms CASCADE;
-    DROP TABLE GamePlatforms;
+    ----RESET EVERYTHING FOR TESTING
+    ----remove / outcomment if first time running code.
+    --DROP TABLE Games CASCADE;
+    --DROP TABLE users;
+    --DROP TABLE reviews;
+    --DROP TABLE Platforms CASCADE;
+    --DROP TABLE GamePlatforms;
     --------------------------------
     
     --Games
