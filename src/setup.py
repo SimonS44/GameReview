@@ -12,7 +12,7 @@ try:
     DB_HOST = config.DB_HOST    #'your_db_host'
     DB_PORT = config.DB_PORT    #'your_db_port'
     
-    #replace with your '/GameReview' path if it does not work 
+    #replace with your '/GameReview' path if it does not work:
     #base_path = 'PATH/GameReview'
     
     conn = psycopg2.connect(
@@ -25,13 +25,13 @@ try:
     cursor = conn.cursor()
     create_query = '''
     --------------------------------
-    --RESET EVERYTHING FOR TESTING
-    --remove / outcomment if first time running code.
-    DROP TABLE Games CASCADE;
-    DROP TABLE users;
-    DROP TABLE reviews;
-    DROP TABLE Platforms CASCADE;
-    DROP TABLE GamePlatforms;
+    ----RESET EVERYTHING FOR TESTING
+    ----remove / outcomment if first time running code.
+    --DROP TABLE Games CASCADE;
+    --DROP TABLE users;
+    --DROP TABLE reviews;
+    --DROP TABLE Platforms CASCADE;
+    --DROP TABLE GamePlatforms;
     --------------------------------
     
     --Games
@@ -57,7 +57,7 @@ try:
         CONSTRAINT user_pk PRIMARY KEY (username)
     );
 
-    INSERT INTO users(username, mail, password) VALUES ('q', 'q@q.q', 'q'); -- Default user for testing.
+    --INSERT INTO users(username, mail, password) VALUES ('q', 'q@q.q', 'q'); -- Default user for testing.
 
     --Reviews
     CREATE TABLE IF NOT EXISTS Reviews(

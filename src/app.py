@@ -118,7 +118,7 @@ def game_detail(gameId):
     existing_review = cur.fetchone()
     if existing_review:
         rating = str(existing_review[2])+"/10 stars"
-        comment = existing_review[3].strip()    # replace with "existing_review[3][:(len(existing_review[3].strip()))]" if it is wrong
+        comment = existing_review[3].strip()            #Remove all of the spaces
         #TODO Find a way to update the stars with rating
     if game:
         return render_template('game_detail.html', game=game, gameId=gameId, reviews=reviews, average=average, comment=comment, rating=rating)
